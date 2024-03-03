@@ -1,6 +1,7 @@
  const express=require('express')
 // const app=express()
 const morgan=require('morgan')
+const path=require('path')
 const session = require('express-session');
 const swaggerDocs=require('./utils/swagger')
 const dbConnect = require('./src/config/dbConfig')
@@ -67,6 +68,18 @@ app.use('/api/payment',paymentRouter)
 app.use('/api/search',searchRouter)
 app.use('/api/wallet',walletRouter)
 app.use('/api/coupon',couponRouter)
+
+
+
+app.use(express.static(path.join(__dirname,'../client/dist')))
+
+app.get('*',(req,res)=>res.sendFile(path.resolve(__dirname,'..','client','dist','index.html')))
+
+
+
+
+
+
 
 server.listen(4000,async ()=>{
     console.log('server running')
