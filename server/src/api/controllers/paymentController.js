@@ -100,8 +100,8 @@ const payment = async (req, res, next) => {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: "http://localhost:5173/payment-success",
-      cancel_url: "http://localhost:5173/login",
+      success_url: "https://travelnest.shop/payment-success",
+      cancel_url: "https://travelnest.shop/login",
       metadata: {
         booking_details: JSON.stringify({
           result,
@@ -283,7 +283,6 @@ const webHookController = async (req, res, next) => {
 const updateWalletAmount = async (req, res) => {
   try {
     const response = await updateWalletAmountHelper(req.body);
-    // console.log(response)
 
     console.log(response);
     res.status(200).json({ response });
