@@ -42,9 +42,6 @@ const OwnerArchived = ({ setRecipientId, socket }) => {
  
   return (
     <>
-      {/* <div className="h-[60px] border-b-2  flex justify-left items-center">
-        <h2 className="font-bold text-[1.3rem] ms-5 p-4">Archived</h2>
-      </div> */}
 
       <div
         className="flex flex-col mt-4

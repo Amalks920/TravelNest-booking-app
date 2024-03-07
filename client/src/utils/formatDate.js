@@ -25,7 +25,7 @@ export const getYesterdayDateString = () => {
   }
 
   export const formatTime=(date) =>{
-    return  format(date, " HH:mm:ss", {
+    return  format(date, " HH:mm", {
       timeZone: "Asia/Kolkata",
     }) 
   }

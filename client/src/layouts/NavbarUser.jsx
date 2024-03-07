@@ -50,7 +50,7 @@ export function NavbarUser() {
   }
 
   return (
-    <Navbar className="fixed max-w-[100vw] h-[70px] rounded-none z-10">
+    <Navbar className="fixed max-w-[100vw] h-[70px] rounded-none z-10 shadow-none">
       <div className="flex items-center justify-between text-blue-gray-900">
         <Typography
           as="a"

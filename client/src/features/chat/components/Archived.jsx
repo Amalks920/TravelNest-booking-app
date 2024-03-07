@@ -59,7 +59,7 @@ const Archived = ({ setRecipientId, socket }) => {
                 console.log(conversation)
                 setRecipientId(conversation?.participants[0]?._id);
               }}
-              className="w-full"
+              className="w-full border-2 "
               key={index}
             >
               <ChatList

@@ -49,8 +49,8 @@ const allowedOrigins = require('./src/config/cors/allowedOrigins');
 app.use(morgan('combined'))
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
-//app.use(credentials);
-//app.use(cors(corsOptions))
+app.use(credentials);
+app.use(cors(corsOptions))
 app.use(cookieParser())
 app.use(session({ secret: "Private", resave: true, saveUninitialized: true}))
 

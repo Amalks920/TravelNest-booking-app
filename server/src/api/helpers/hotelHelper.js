@@ -412,6 +412,18 @@ const getAllHotelIdsHelper= async (owner_id) => {
 }
 
 
+const getHotelByLocationForHomeHelper=async (location) =>{
+  try {
+    console.log(location,location,location)
+    const response= await hotelModel.find({location:location,status:'listed'})
+    
+    return response
+  } catch (error) {
+    throw error
+  }
+} 
+
+
 
 module.exports = {
   uploadImages,
@@ -432,5 +444,6 @@ module.exports = {
   getRatingOfAHotelHelper,
   getAllHotelsLengthHelper,
   getAllHotelForAdminLengthHelper,
-  getAllHotelIdsHelper
+  getAllHotelIdsHelper,
+  getHotelByLocationForHomeHelper
 };

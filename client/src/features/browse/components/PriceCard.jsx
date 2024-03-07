@@ -168,7 +168,7 @@ const  PriceCard = ({ rate, roomType, hotel_id, room_id, open, setOpen,couponMod
                   setNoOfRooms(e.target.value);
                   dispatch(updateNoOfRooms(e.target.value));
                 }}
-                className="bg-white w-[98.1%] ps-5 h-[60px] border-t-0  border-[0.7px] border-gray-600 rounded-b-lg"
+                className="bg-white w-[100%] ps-2 h-[60px] border-t-0  border-[0.7px] border-gray-600 rounded-b-lg"
               >
                 <option value="0" disabled={true}>
                   0
@@ -221,7 +221,7 @@ const  PriceCard = ({ rate, roomType, hotel_id, room_id, open, setOpen,couponMod
                 // bg-[#E41D56]
               }}
               
-              className="w-[100%] -ms-[2px] mt-5 py-4 bg-gray-800  border-2"
+              className="w-[100%]  mt-5 py-4 bg-gray-800  border-2 mb-4 "
             >
               Pay Using Card
             </Button>
@@ -233,7 +233,7 @@ const  PriceCard = ({ rate, roomType, hotel_id, room_id, open, setOpen,couponMod
             ()=>{
               setCouponModalOpen(!couponModalOpen)
             }}
-             className=" text-[0.9rem] cursor-pointer text-black pt-[7px]">
+             className=" text-[0.9rem] cursor-pointer text-black pt-[7px] ms-2">
               Apply Coupon?
             </h2>
             <h2

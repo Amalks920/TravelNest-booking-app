@@ -78,6 +78,6 @@ export const SITEMAP = [
   ];
 
 
-export const BASE_URL='https://travelnest.shop/api'
+export const BASE_URL='http://localhost:4000/api'
 
 export const IMAGE_BASE_URL='http://res.cloudinary.com/diwjdka8p/image/upload/v1703297973/'

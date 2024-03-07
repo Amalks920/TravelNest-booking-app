@@ -61,7 +61,7 @@ function App() {
 	const [onlineUsers, setOnlineUsers] = useState([]);
 
   useEffect(()=>{
-    const socket = io("https://travelnest.shop", {
+    const socket = io("http://localhost:4000", {
 			query: {
 				userId: user_id,
 			},

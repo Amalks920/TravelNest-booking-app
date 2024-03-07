@@ -22,6 +22,12 @@ const getAllHotelsApiSlice=apiSlice.injectEndpoints({
         }),
         filterAllRoomsByLocation:builder.query({
             query:(data)=>`/room/get-all-rooms-by-location/${data.location}`
+        }),
+        getHotelsByLocationHome:builder.mutation({
+            query:(data)=>({
+                url:`/hotel/get-hotel-by-location-home/${data?.location}`,
+                method:'get'
+            })
         })
  
     })
@@ -34,5 +40,6 @@ export const {useGetAllHotelQuery,
     useGetAllHotelLocationQuery,
     useGetAllRoomsLocationMutation,
     useGetAllRoomsByLocaitonQuery,
-    useFilterAllRoomsByLocationQuery
+    useFilterAllRoomsByLocationQuery,
+    useGetHotelsByLocationHomeMutation
 }=getAllHotelsApiSlice

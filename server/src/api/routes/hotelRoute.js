@@ -1,5 +1,5 @@
 const express = require('express');
-const { createHotel, getAllHotels, getAHotel, editHotel, getAllHotelDetails,getAHotelForUser,deleteHotelImage, changeHotelStatus, getAllHotelsForUser, getAllHotelsForAdmin, editHotelDetail, editHotelName, editHotelLocation, editHotelDescription, addHotelImages, getRatingOfAHotel, getAllHotelsLength, getAllHotelForAdminLength } = require('../controllers/hotelController');
+const { createHotel, getAllHotels, getAHotel, editHotel, getAllHotelDetails,getAHotelForUser,deleteHotelImage, changeHotelStatus, getAllHotelsForUser, getAllHotelsForAdmin, editHotelDetail, editHotelName, editHotelLocation, editHotelDescription, addHotelImages, getRatingOfAHotel, getAllHotelsLength, getAllHotelForAdminLength, getHotelByLocationForHome } = require('../controllers/hotelController');
 const router = express.Router();
 const uploader=require('../../config/multer');
 const verifyJwt = require('../utils/verifyJwt');
@@ -32,6 +32,8 @@ router.get('/get-all-hotels/:userId',verifyOwnerJwt,getAllHotels)
 
 router.get('/get-all-hotels-length/:user_id',getAllHotelsLength)
 
+router.get('/get-hotel-by-location-home/:location',getHotelByLocationForHome)
+
 
 //admin
 router.get('/get-all-hotels-admin/:pageNumber',verifyAdminJwt,getAllHotelsForAdmin)
@@ -62,6 +64,7 @@ router.get('/get-all-hotels-admin-length',getAllHotelForAdminLength)
 router.get('/get-hotels-group-by-location',(req,res)=>{
     res.status(200).json({message:[{},{},{}]})
 })
+
 /**
  * @openapi
  * paths:
