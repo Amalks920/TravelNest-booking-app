@@ -26,7 +26,7 @@ const PrintButton=({booking,componentRef})=>{
         class="bg-transparent text-black  border-2 sm:text-sm text-[0.7rem] font-bold border-black 
     sm:w-[150px] sm:h-[40px]    w-[80px] h-[25px]  ms-3 sm:ms-0"
       >
-        print
+        Download Invoice
       </button>
     )
 }

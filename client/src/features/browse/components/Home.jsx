@@ -4,18 +4,23 @@ import useGetAllHotels from "../hooks/useGetAllHotels";
 import Cards from "./Cards";
 import {
   selectIsSearchBarOpen,
+  updateCheckIn,
+  updateLocation,
+  updatePriceRange,
+  updateRoomType,
   updateSearchResult,
 } from "../../../services/searchSlice";
 import { Button, Spinner } from "@material-tailwind/react";
 import SearchSection from "./SearchSection";
 import { HotelCardSkeleton } from "./HotelCardSkeleton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchSectionHome from "./SearchSectionHome";
 import { useSearchMutation } from "../services/searchApiSlice";
 import { useNavigate } from "react-router-dom";
 import { useGetAllRoomsLocationMutation } from "../services/getAllHotelsApiSlice";
 import { IMAGE_BASE_URL } from "../../../data/constants";
 import LocationWiseHotels from "./LocationWiseHotels";
+import { updateCheckOut } from "../services/priceSlice";
 
 const Home = () => {
   const isSearchBarOpen = useSelector(selectIsSearchBarOpen);
@@ -41,6 +46,14 @@ const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
  
+  useEffect(()=>{
+    dispatch(updateCheckIn(null))
+    dispatch(updateCheckOut(null))
+    dispatch(updateLocation(null))
+    dispatch(updateRoomType(null))
+    dispatch(updatePriceRange(null))
+    dispatch(updateSearchResult([]))
+  },[])
 
   const handleSearch = async () => {
     navigate(`/search-page`);

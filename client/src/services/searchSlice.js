@@ -39,6 +39,8 @@ const searchSlice=createSlice({
             state.priceRange={}
         },
         updateSearchResult:(state,action)=>{
+            console.log(action.payload)
+            console.log('--00---j000>')
             state.searchResult=action.payload
         },
         updatePriceRange:(state,action)=>{

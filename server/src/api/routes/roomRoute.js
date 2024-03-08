@@ -192,7 +192,7 @@ router.get('/get-avg-rating-of-room/',verifyJwt,)
 router.get('/get-all-rooms-by-location',checkAvailability,getRoomsByLocation)
 router.get('/get-all-rooms/:location',getHotelRoomsByLocation)
 
-router.get('/get-all-rooms-by-location/:location',checkAvailability,filterRoomsByLocation)
+router.get('/get-all-rooms-by-location/:hotelName',checkAvailability,filterRoomsByLocation)
 
 //owner
 router.put('/edit-room-description/:room_id',verifyOwnerJwt,editRoomDescription )

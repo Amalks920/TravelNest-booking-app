@@ -2,7 +2,7 @@ const {
   findHotelByLocationHelper,
   searchHotels,
 } = require("../helpers/hotelHelper");
-const { searchRoomsHotel } = require("../helpers/roomHelper");
+const { searchRoomsHotel, searchRoomsByHotelName } = require("../helpers/roomHelper");
 
 const searchController = async (req, res, next) => {
   try {
@@ -56,6 +56,41 @@ const roomSearchController = async (req, res, next) => {
       amenities
     );
     console.log(response)
+    console.log('add response')
+    res.status(200).json({ response });
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({ error });
+  }
+};
+
+const searchByHotelController = async (req, res, next) => {
+  const amenities=req.query.aminities.split(',')
+  const collisions = res.locals.existingCollisions;
+  const c=res.locals.collisions
+
+  const location = req.query.search; 
+  const roomType = req.query.roomType || null;
+  const hotelName=req.query.hotelName 
+
+  const min = req.query.min || null;
+  const max = req.query.max || null;
+  const priceRange = {
+    min,
+    max,
+  };
+
+  try {
+    const response = await searchRoomsByHotelName(
+      location,
+      collisions,
+      priceRange,
+      roomType,
+      amenities,
+      hotelName
+    );
+    console.log(response)
+    console.log('add response')
     res.status(200).json({ response });
   } catch (error) {
     console.log(error);
@@ -66,4 +101,5 @@ const roomSearchController = async (req, res, next) => {
 module.exports = {
   searchController,
   roomSearchController,
+  searchByHotelController
 };

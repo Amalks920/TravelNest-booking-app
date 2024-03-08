@@ -1,5 +1,4 @@
  const express=require('express')
-// const app=express()
 const morgan=require('morgan')
 const path=require('path')
 const session = require('express-session');
@@ -10,7 +9,6 @@ const cors=require('cors')
 const http=require('http')
 const cookieParser=require('cookie-parser')
 const socketEvents=require('./src/api/services/socket/socket.js');
-//const redisClient=require('./src/config/redisConfig.js')
 const credentials=require('./src/api/middlewares/credentials')
 const corsOptions=require('./src/config/cors/corsOption')
 const authRouter=require('./src/api/routes/authenticationRoute')
@@ -25,26 +23,15 @@ const chatRouter=require('./src/api/routes/chatRoute.js')
 const paymentRouter=require('./src/api/routes/paymentRoute')
 const searchRouter=require('./src/api/routes/searchRoute')
 const walletRouter=require('./src/api/routes/walletRoute.js')
-//const { Server } = require('socket.io');
 const { app, server } =require( "./src/api/services/socket/socket.js");
 
-//const server=http.createServer(app)
+
 
 const handleError = require('./src/api/middlewares/errorHandler');
 const allowedOrigins = require('./src/config/cors/allowedOrigins');
 
 
-// const  io= new Server(server,{
-//     cors:{
-//         origin:"http://localhost:5173",
-//         methods: ["GET", "POST"],
-//         //allowedOrigins
-//     }
-// })
 
-//console.log(redisClient)
-
-// socketEvents(io)
 
 app.use(morgan('combined'))
 app.use(express.json());
@@ -75,9 +62,6 @@ app.use('/api/coupon',couponRouter)
 app.use(express.static(path.join(__dirname,'public/dist')))
 
 app.get('*',(req,res)=>res.sendFile(path.resolve(__dirname,'public','dist','index.html')))
-
-
-
 
 
 

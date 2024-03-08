@@ -373,8 +373,6 @@ const addRoomImagesHelper = (room_id, imagePathArray) => {
 };
 
 const searchRoomsHotel = async (location, collisions, priceRange, roomType,amenities) => {
-console.log(amenities)
-console.log('amenities')
 if(!roomType) console.log(true)
 
 
@@ -507,6 +505,147 @@ if(!roomType) console.log(true)
      
     }
 };
+
+const searchRoomsByHotelName = async (location, collisions, priceRange, roomType,amenities,hotelName) => {
+  console.log(location)
+  if(!roomType) console.log(true)
+  
+  
+    const matchQuery= {
+      $and: [
+        // {
+        //   location: {
+        //     $regex: `${location}`,
+        //     $options: "i",
+        //   },
+        // },
+        {
+          hotelName:{
+            hotelName:hotelName
+          }
+        },
+        {
+          _id: {
+            $nin: collisions,
+          },
+        },
+  
+   //     { rate: { $gte: Number(priceRange?.min) || 0 } }, // min price
+  
+   //     { rate: { $lte: Number(priceRange?.max) || Number.MAX_SAFE_INTEGER } }, // max price
+  
+   //       { roomType: roomType },
+      
+  
+      ],
+    }
+    // const matchQuery2= {
+    //   $and: [
+    //     {
+    //       location: {
+    //         $regex: `${location}`,
+    //         $options: "i",
+    //       },
+    //     },
+    //     {
+    //       _id: {
+    //         $nin: collisions,
+    //       },
+    //     },
+  
+    //     // { rate: { $gte: Number(priceRange?.min) || 0 } }, // min price
+  
+    //     // { rate: { $lte: Number(priceRange?.max) || Number.MAX_SAFE_INTEGER } }, // max price
+  
+    //     //   { roomType: roomType },
+  
+    //   ],
+    // }
+  
+    const pipeline=[
+      {
+        $lookup: {
+          from: "hotels",
+          localField: "hotel_id",
+          foreignField: "_id",
+          as: "hotelDetails",
+        },
+      },
+      {
+        $lookup: {
+          from:'reviews',
+          localField:'_id',
+          foreignField:'room_id',
+          as:'reviewDetails'
+        }
+      },
+      {
+        $unwind: "$hotelDetails",
+      },
+      {
+        $match: {
+          "hotelDetails.status": "listed",
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          roomType: 1,
+          description: 1,
+          size: 1,
+          amenities: 1,
+          rate: 1,
+          hotel_id: 1,
+          images: 1,
+          bathroomType: 1,
+          rate: 1,
+          hotelName: "$hotelDetails.hotelName",
+          hotelDescription: "$hotelDetails.description",
+          hotelImages: "$hotelDetails.images",
+          location: "$hotelDetails.location",
+          reviewDetails:1
+        },
+      },
+  
+      {
+        $match:matchQuery
+      },
+    ]
+  
+  
+  
+  
+  
+  
+    if(collisions.length!=0 && roomType!=null){
+     
+      matchQuery.$and.push(
+              {
+          _id: {
+            $nin: collisions,
+          },
+        },
+        { roomType: roomType },
+  
+        );
+  
+      // pipeline.push(
+      //   { roomType: roomType }
+      // )
+    }
+      try {
+     
+        const response = await roomModel.aggregate(
+          pipeline
+        );
+        console.log(response)
+        console.log('response re==>>>>')
+        return response
+      } catch (error) {
+        return error
+       
+      }
+  };
 
 const getARoomHelper= async (room_id)=>{
   try {
@@ -677,7 +816,7 @@ const getRoomsByLocationHelper=async (location) =>{
   }
 }
 
-const filterRoomsByLocationHelper=async (location,collisions)=>{
+const filterRoomsByLocationHelper=async (hotelName,collisions)=>{
 try {
   const response=await roomModel.aggregate([
     {
@@ -696,9 +835,6 @@ try {
         "hotelDetails.status": "listed",
       },
     },
-
-
-
     {
       $project: {
         _id: 1,
@@ -721,8 +857,8 @@ try {
       $match:{
         $and: [
           {
-            location: {
-              $regex: `${location}`,
+            hotelName: {
+              $regex: `${hotelName}`,
               $options: "i",
             },
           },
@@ -737,6 +873,7 @@ try {
   ])
   return response
 } catch (error) {
+  console.log(error)
   throw error
 }
 }
@@ -811,5 +948,6 @@ module.exports = {
   getRoomsByLocationHelper,
   getHotelRoomsByLocationHelper,
   filterRoomsByLocationHelper,
-  changeRoomNumberHelper
+  changeRoomNumberHelper,
+  searchRoomsByHotelName
 };

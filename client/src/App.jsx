@@ -59,9 +59,9 @@ function App() {
 
 	const [socket, setSocket] = useState(null);
 	const [onlineUsers, setOnlineUsers] = useState([]);
-
+//https://travelnest.shop
   useEffect(()=>{
-    const socket = io("'https://travelnest.shop", {
+    const socket = io("https://travelnest.shop", {
 			query: {
 				userId: user_id,
 			},
@@ -157,7 +157,7 @@ function App() {
       <Route path="/home" element={<HomePage />} />
         <Route path="/hotel-details/:hotel_id/:room_id/:checkIn/:checkOut" element={<SingleHotelPage/>} />
         <Route path='/search-page' element={<SearchPage/>}></Route>    
-        <Route path='/hotels-by-location/:location' element={<HotelsByLocationPage/>}></Route>    
+        <Route path='/hotels-by-location/:hotelName' element={<HotelsByLocationPage/>}></Route>    
 
 
         <Route element={<RequireUserAuth allowedRole={'user'}/>}>

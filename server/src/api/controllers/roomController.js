@@ -239,14 +239,16 @@ const getRoomsByLocation=async (req,res)=>{
 
 
 const filterRoomsByLocation=async (req,res)=>{
-  const location=req.params.location;
+  const hotelName=req.params.hotelName;
   const collisions = res.locals.existingCollisions;
   try {
-    console.log(location)
     console.log(collisions)
-    const response=await filterRoomsByLocationHelper(location,collisions)
+    const response=await filterRoomsByLocationHelper(hotelName,collisions)
+    console.log(response)
+    console.log('i')
     res.status(200).json({response});
   } catch (error) {
+    console.log(error)
     res.status(500).json({error})
   }
 }

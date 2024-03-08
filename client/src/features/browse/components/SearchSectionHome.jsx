@@ -9,7 +9,7 @@ const SearchSectionHome = () => {
   const [checkIn, setCheckInDate] = useState(null);
   const [checkOut, setCheckOutDate] = useState(null);
   const [searchString, setSearchString] = useState(null);
-  const [roomType,setRoomType]=useState(null)
+  const [roomType,setRoomType]=useState(null);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -64,6 +64,8 @@ const handleSubmit=async () => {
         />
         <input
           onChange={(e) => {
+            console.log(e.target.value)
+            console.log('e.target.value')
             dispatch(updateCheckIn(e.target.value))
             setCheckInDate(e.target.value);
           }}

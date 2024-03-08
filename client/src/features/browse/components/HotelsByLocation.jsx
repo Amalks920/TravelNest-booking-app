@@ -6,21 +6,24 @@ import { useFilterAllRoomsByLocationQuery } from "../services/getAllHotelsApiSli
 
 const HotelsByLocation=()=>{
 
-    const {location}=useParams();
+    const {hotelName}=useParams();
 
+    const {data:hotels,isError,isFetching,isLoading}=useFilterAllRoomsByLocationQuery({hotelName})
 
-    const {data:hotels,isError,isFetching,isLoading}=useFilterAllRoomsByLocationQuery({location})
-    console.log(hotels)
     return (
-<div className="flex justify-between flex-wrap">
+<div className="grid grid-cols-3 grid-flow-row w-[90%] place-items-center gap-12 mt-[5%] rounded-lg mb-[9%]">
 
 
    { 
    hotels?.response?.map((hotel,index)=>{
     console.log(hotel)
-
- return   <Cards text={hotel?.hotelName} images={hotel?.images}/>
-
+        return  <Cards
+         text={hotel?.hotelName} 
+         rate={hotel?.rate}
+         roomType={hotel?.roomType}
+         room_id={hotel?._id}
+         hotel_id={hotel?.hotel_id}
+         images={hotel?.images}/>
 })
    }
     
