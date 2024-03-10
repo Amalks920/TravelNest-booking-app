@@ -59,9 +59,9 @@ app.use('/api/coupon',couponRouter)
 
 
 
-//app.use(express.static(path.join(__dirname,'public/dist')))
+app.use(express.static(path.join(__dirname,'public/dist')))
 
-//app.get('*',(req,res)=>res.sendFile(path.resolve(__dirname,'public','dist','index.html')))
+app.get('*',(req,res)=>res.sendFile(path.resolve(__dirname,'public','dist','index.html')))
 
 
 
