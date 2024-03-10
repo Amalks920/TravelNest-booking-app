@@ -25,6 +25,7 @@ const getAllCouponsOwnerHelper = async () =>{
         const response=await couponModal.find({})
         return response
     } catch (error) {
+       
         throw error
     }
 }

@@ -11,7 +11,7 @@ import { Spinner } from "@material-tailwind/react";
 import ChatList from "./ChatList";
 import { useEffect, useState } from "react";
 
-const Archived = ({ setRecipientId, socket }) => {
+const Archived = ({ setRecipientId, socket,onlineUsers }) => {
   const user_id = useSelector(selectUserId);
   const role = useSelector(selectRole);
 
@@ -66,6 +66,8 @@ const Archived = ({ setRecipientId, socket }) => {
                 username={conversation?.participants[0]?.username}
                 sender={conversation?.lastMessage?.sender}
                 text={conversation?.lastMessage?.text}
+                id={conversation?.participants[0]?._id}
+                onlineUsers={onlineUsers}
               />
             </div>
           );

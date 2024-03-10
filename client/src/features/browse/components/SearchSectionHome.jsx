@@ -49,17 +49,17 @@ const handleSubmit=async () => {
 
   return (
     <>
-      <h2 className="text-white capitalize font-bold sm:text-[2.2rem]     text-center mb-4">
+      <h2 className="text-white capitalize font-bold sm:text-[2.2rem]  text-[0.8rem]    text-center mb-4">
         Over 174,000+ hotels and homes across 35+ countries
       </h2>
       <div 
-        className="grid grid-cols-[35%,15%,15%,15%,20%] grid-rows-1 border-2 w-[70%] sm:h-1/4  h-1/5 rounded-md brightness-95">
+        className="grid sm:grid-cols-[35%,15%,15%,15%,20%] grid-cols-[25%,20%,20%,15%,20%]  grid-rows-1 border-2 sm:w-[70%] w-[90%] sm:h-1/4 h-1/4 rounded-md brightness-95">
         <input
           onChange={(e) => {
             updateLocation(e.target.value)
             setSearchString(e.target.value);
           }}
-          className="ps-3 sm:text-[1.1rem] text-[0.8rem]  capitalize focus:font-bold focus:border-2 border-black"
+          className="sm:ps-3 ps-1   sm:text-[1.1rem]  text-[0.4rem]  capitalize focus:font-bold focus:border-2 border-black"
           placeholder="Search by location"
         />
         <input
@@ -72,7 +72,7 @@ const handleSubmit=async () => {
           type="date"
           min={getYesterdayDateString()}
           max={checkOut || getFutureDateString(10)}
-          className="ps-3 text-[1rem]  focus:border-2  border-black"
+          className="ps-3 sm:text-[1rem] text-[0.5rem]  focus:border-2  border-black"
         />
         <input
           onChange={(e) => {
@@ -82,7 +82,7 @@ const handleSubmit=async () => {
           type="date"
           min={ checkIn || getYesterdayDateString()}
           max={ getFutureDateString(10)}
-          className="ps-3 text-[1rem]  focus:border-2 border-black"
+          className="ps-3 sm:text-[1rem] text-[0.5rem]  focus:border-2 border-black"
         />
 
         <select
@@ -91,7 +91,7 @@ const handleSubmit=async () => {
             dispatch(updateRoomType(e.target.value))
             setRoomType(e.target.value)
           }} 
-          className="ps-2 pe-3 text-[1rem] text-gray-500 bg-white  font-extralight"
+          className="ps-2 pe-3 sm:text-[1rem] text-[0.5rem] text-gray-500 bg-white  font-extralight"
           name=""
           id=""
         >
@@ -107,7 +107,7 @@ const handleSubmit=async () => {
         onClick={()=>{
             handleSubmit()
         }}
-         type="submit" className="bg-green-600 rounded-md hover:bg-green-800 text-white sm:text-[1.4rem] text-[0.6rem] font-bold uppercase">
+         type="submit" className="bg-green-600 rounded-md hover:bg-green-800 text-white sm:text-[1.4rem] text-[0.4rem] font-bold uppercase">
           Search
         </button>
       </div>

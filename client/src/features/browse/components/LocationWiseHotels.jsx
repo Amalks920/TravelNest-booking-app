@@ -44,9 +44,9 @@ const LocationWiseHotels = ({ location, isLoading: isLoadingLocation }) => {
 
     if (isLoadingLocation) return <Spinner />
     return (
-        <div className="w-[99%] h-[70%] -ms-[4%] shadow-md border-2 bg-white">
+        <div className="w-[99%] sm:h-[250px] h-[80px] -ms-[4%] sm:-mt-0 sm:mb-[5%]  shadow-md border-2 bg-white">
 
-            <div className="border-b-2 h-[50px]  gap-1 justify-left items-center flex">
+            <div className="border-b-2 sm:h-[50px] h-[20px]  gap-1 justify-left items-center flex">
                 {location?.map(({ _id }, index) => {
 
                     return <h2
@@ -55,12 +55,12 @@ const LocationWiseHotels = ({ location, isLoading: isLoadingLocation }) => {
                             setLocation(_id)
                             handleGetHotelByLocationHome(_id)
                         }}
-                        className={`capitalize cursor-pointer   text-[1.1rem] mx-[12%] ${hotelLocation === _id ? 'border-b-2 border-black font-bold' : null}
-              text-center   w-full h-[100%] pt-4 text-[15px] font-serif`}>{_id}</h2>;
+                        className={`capitalize cursor-pointer sm:pt-2   sm:text-[1.1rem] text-[9px] sm:mt-0 mt-[1%] mx-[12%] ${hotelLocation === _id ? 'border-b-2 border-black font-bold' : null}
+              text-center   w-full h-[100%] sm:pt-0 text-[15px] font-serif`}>{_id}</h2>;
                 })}
             </div>
 
-            <div className="flex  justify-left gap-10 ms-[2%] items-center mb-4">
+            <div className="flex  justify-left sm:gap-10 gap-4 ms-[2%] items-center mb-4">
                 {hotelArrayByLocation?.map(({ _id, hotelName, images }, index) => {
 
                     return <Link
@@ -75,8 +75,8 @@ const LocationWiseHotels = ({ location, isLoading: isLoadingLocation }) => {
                               
                             //  handleSearch(hotelName)
                             }}
-                            className="w-[250px] h-[130px] bg-cover bg-no-repeat  text-white brightness-90 flex 
-            justify-left items-end text-[0.8rem] text-left ps-3 pb-3 pe-3 font-bold mt-4"
+                            className="sm:w-[250px] w-[80px] h-[40px] sm:h-[130px] bg-cover bg-no-repeat  text-white brightness-90 flex 
+            justify-left items-end sm:text-[0.8rem] text-[0.2rem] text-left ps-3 pb-3 pe-3 font-bold sm:mt-4 mt-1"
                             style={{ backgroundImage: `url(${IMAGE_BASE_URL + '/' + images[0]})` }}>
                             {hotelName}
                         </div>

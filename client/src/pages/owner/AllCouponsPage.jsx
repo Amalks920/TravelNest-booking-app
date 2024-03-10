@@ -1,3 +1,4 @@
+import { useState } from "react"
 import AllCoupons from "../../features/couponManagement/components/AllCoupons"
 import { useGetAllCouponsLengthQuery } from "../../features/couponManagement/services/couponApiSlice"
 
@@ -5,10 +6,10 @@ import { useGetAllCouponsLengthQuery } from "../../features/couponManagement/ser
 
 const AllCouponsPage=() => {
 
+    const [pageNumber,setPageNumber]=useState(1)
     const {data:couponsLength,isError,isFetching,isLoading}=useGetAllCouponsLengthQuery()
 
-    console.log(couponsLength)
-    return <AllCoupons couponsLength={couponsLength?.response}/>
+    return <AllCoupons couponsLength={couponsLength?.response} pageNumber={pageNumber} setPageNumber={setPageNumber}/>
 
 }
 

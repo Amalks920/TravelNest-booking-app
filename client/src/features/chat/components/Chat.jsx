@@ -7,7 +7,7 @@ import Archived from "./Archived";
 import MessageInput from "./MessageInput";
 
 
-const Chat = ({socket}) => {
+const Chat = ({socket,onlineUsers}) => {
  
     const role=useSelector(selectRole)
     const {owner_id}=useParams()
@@ -41,7 +41,7 @@ const Chat = ({socket}) => {
 
 
       <div className="row-span-1 col-span-1 border-2 border-r-0 border-t-0">
-      <Archived setRecipientId={setRecipientId} socket={socket}/>
+      <Archived setRecipientId={setRecipientId} socket={socket} onlineUsers={onlineUsers}/>
       </div>
       
       <div  className="row-span-1 col-span-1 border-2 border-r-2 border-t-0 overflow-y-scroll flex overflow-auto" >

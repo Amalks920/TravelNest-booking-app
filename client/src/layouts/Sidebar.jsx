@@ -54,7 +54,7 @@ export function Sidebar() {
                 <HomeModernIcon className="h-5 w-5" />
               </ListItemPrefix>
               <Typography color="blue-gray" className="mr-auto font-normal">
-             <Link to={role==='owner'?'/owner/home':'/admin/home'}> { 'Dashboard'}</Link> 
+             <Link to={role==='owner'?'/owner/home':'/admin/home'} className="text-[0.9rem]"> { 'Dashboard'}</Link> 
               </Typography>
             </AccordionHeader>
           </ListItem>
@@ -96,7 +96,7 @@ export function Sidebar() {
               <ListItemPrefix>
                 <HomeModernIcon className="h-5 w-5" />
               </ListItemPrefix>
-              <Typography color="blue-gray" className="mr-auto font-normal">
+              <Typography color="blue-gray" className="mr-auto font-normal text-[0.9rem]">
                { role==='owner'?'Hotels':role==='admin'?'Users':null}
               </Typography>
             </AccordionHeader>
@@ -107,7 +107,7 @@ export function Sidebar() {
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                <Link to={role==='owner'?'/owner/register-hotel':role==='admin'?'/admin/home':null}>{role==='owner'?'Register Hotel':role==='admin'?'users list':null}</Link>
+                <Link className="text-[0.8rem]" to={role==='owner'?'/owner/register-hotel':role==='admin'?'/admin/home':null}>{role==='owner'?'Register Hotel':role==='admin'?'users list':null}</Link>
               </ListItem>
 
               {
@@ -117,7 +117,7 @@ export function Sidebar() {
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                <Link to={'/owner/hotel-list'}>Hotel List</Link>  
+                <Link className="text-[0.8rem]" to={'/owner/hotel-list'}>Hotel List</Link>  
               </ListItem>):null
               }
 
@@ -139,7 +139,7 @@ export function Sidebar() {
               <ListItemPrefix>
                 <UserGroupIcon className="h-5 w-5" />
               </ListItemPrefix>
-              <Typography color="blue-gray" className="mr-auto font-normal">
+              <Typography color="blue-gray" className="mr-auto font-normal text-[0.9rem]">
                { 'Users'}
               </Typography>
             </AccordionHeader>
@@ -150,7 +150,7 @@ export function Sidebar() {
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                <Link to={'/owner/chats'}>chats</Link>
+                <Link to={'/owner/chats'} className="text-[0.8rem]">chats</Link>
               </ListItem>
             </List>
           </AccordionBody>
@@ -170,7 +170,7 @@ export function Sidebar() {
               <ListItemPrefix>
                 <UserGroupIcon className="h-5 w-5" />
               </ListItemPrefix>
-              <Typography color="blue-gray" className="mr-auto font-normal">
+              <Typography color="blue-gray" className="mr-auto font-normal text-[0.9rem]">
                { 'Bookings'}
               </Typography>
             </AccordionHeader>
@@ -181,7 +181,7 @@ export function Sidebar() {
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                <Link to={'/owner/all-bookings'}>All bookings</Link>
+                <Link to={'/owner/all-bookings'} className="text-[0.8rem]">All bookings</Link>
               </ListItem>
             </List>
           </AccordionBody>
@@ -201,7 +201,7 @@ export function Sidebar() {
               <ListItemPrefix>
                 <UserGroupIcon className="h-5 w-5" />
               </ListItemPrefix>
-              <Typography color="blue-gray" className="mr-auto font-normal">
+              <Typography color="blue-gray" className="mr-auto font-normal text-[0.9rem]">
                { 'Offers & Coupons'}
               </Typography>
             </AccordionHeader>
@@ -212,19 +212,13 @@ export function Sidebar() {
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                <Link to={'/owner/all-coupons'}>All Coupons</Link>
+                <Link to={'/owner/all-coupons'} className="text-[0.8rem]">All Coupons</Link>
               </ListItem>
               <ListItem>
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                <Link to={'/owner/add-coupon'}> Add Coupon</Link>
-              </ListItem>
-              <ListItem>
-                <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                </ListItemPrefix>
-                <Link to={'/owner/edit-coupon'}> Edit Coupon</Link>
+                <Link to={'/owner/add-coupon'} className="text-[0.8rem]"> Add Coupon</Link>
               </ListItem>
             </List>
           </AccordionBody>
@@ -244,7 +238,7 @@ export function Sidebar() {
               <ListItemPrefix>
                 <UserGroupIcon className="h-5 w-5" />
               </ListItemPrefix>
-              <Typography color="blue-gray" className="mr-auto font-normal">
+              <Typography color="blue-gray" className="mr-auto font-normal text-[0.9rem]">
                { 'Sales'}
               </Typography>
             </AccordionHeader>
@@ -255,7 +249,7 @@ export function Sidebar() {
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                <Link to={'/owner/sales-report-hotels'}>sales report by hotels</Link>
+                <Link to={'/owner/sales-report-hotels'} className="capitalize text-[0.8rem]">sales report by hotels</Link>
               </ListItem>
 
             </List>

@@ -40,7 +40,7 @@ const LoginForm = ({ role }) => {
         role === "user"
           ? "/home"
           : role === "owner"
-          ? "/owner/register-hotel"
+          ? "/owner/home"
           : role === "admin"
           ? "/admin/home"
           : null
@@ -96,6 +96,7 @@ const LoginForm = ({ role }) => {
             {/* <h2 className="text-center text-[2rem]">{'TravelNest'}</h2> */}
 { err &&           <h2 className="text-red-700 capitalize text-sm text-center text-[0.8rem]  w-full">
               <Toast message={err}/>
+             
             </h2>}
             {console.log(errors)}
           </div>

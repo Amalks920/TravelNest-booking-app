@@ -61,7 +61,7 @@ function App() {
 	const [onlineUsers, setOnlineUsers] = useState([]);
 //https://travelnest.shop
   useEffect(()=>{
-    const socket = io("https://travelnest.shop", {
+    const socket = io("http://localhost:4000", {
 			query: {
 				userId: user_id,
 			},
@@ -72,6 +72,7 @@ function App() {
     socket.on("getOnlineUsers", (users) => {
 			setOnlineUsers(users);
       console.log(users)
+      console.log('users those who are online')
 		});
   
     return () =>{
@@ -117,7 +118,7 @@ function App() {
         <Route path='/owner/hotel-details/:hotel_id' element={<HotelDetailsPage/>}></Route>
         <Route path='/owner/bookings-list/:hotel_id' element={<BookingsList/>}></Route>
         <Route path='/owner/booking-details/:booking_id' element={<BookingDetailsPage/>}></Route>
-        <Route path='/owner/chats' element={<OwnerChatPage socket={socket} />} ></Route>
+        <Route path='/owner/chats' element={<OwnerChatPage socket={socket}  onlineUsers={onlineUsers}/>} ></Route>
         <Route path='/owner/all-bookings' element={<AllBookingsPage/>} ></Route>
         <Route path='/owner/add-coupon' element={<AddCouponPage/>}></Route>
         <Route path='/owner/edit-coupon/:coupon_id' element={<EditCouponPage/>}></Route>
@@ -166,7 +167,7 @@ function App() {
         <Route path='/single-booking-details/:booking_id' element={<SingleBookingDetails/>}></Route>
         <Route path='/profile-page' element={<UserProfilePage/>}></Route>
         <Route path='/account' element={<UserAccount/>}></Route>
-        <Route path='/chat/:owner_id' element={<ChatPage socket={socket}/>}></Route>
+        <Route path='/chat/:owner_id' element={<ChatPage socket={socket} onlineUsers={onlineUsers}/>}></Route>
         <Route path='/wallet' element={<WalletPage/>}></Route>
         <Route path='/wallet-history/:wallet_id' element={<WalletHistoryPage/>}></Route>
         <Route path='/user-details' element={<UserDetailsPage/>}></Route>

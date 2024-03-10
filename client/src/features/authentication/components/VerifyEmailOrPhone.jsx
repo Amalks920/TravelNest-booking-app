@@ -84,7 +84,7 @@ useEffect(() => {
 
         emailRef.current = values.email;
         console.log("navigate to otp page");
-       if(verifySignup) window.location.reload(true)
+      // if(verifySignup) window.location.reload(true)
           if(verifySignup && role==='user') return  navigate(`/verify-otp-signup/${emailRef.current}`)
         role === "user"
           ? navigate(`/verify-otp/${emailRef.current}`)
@@ -194,7 +194,7 @@ useEffect(() => {
               disabled={isSubmitting}
             />
           </div>
-        { seconds>0 ? <h1>{seconds}s</h1>:
+        { seconds>0 ? <h1 className={`${!isOtpVerified && 'hidden'}`}>{seconds}s</h1>:
           <h1 className={`cursor-pointer ${!isOtpVerified && 'hidden'}`} onClick={
              ()=>{
               setIsInputDisabled(false)

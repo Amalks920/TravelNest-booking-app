@@ -15,6 +15,8 @@ const addCoupon = async (req,res) => {
 }
 
 const getAllCouponsOwner= async (req,res) => {
+    console.log(req.query)
+    console.log('req.query.pageNumber')
 try {
    const response=await getAllCouponsOwnerHelper()
    res.status(200).json({response})
@@ -30,6 +32,7 @@ const getAllCoupnsOwnerLength= async (req,res) => {
         console.log(response)
         res.status(200).json({response})
     } catch (error) {
+        console.log(error)
         res.status(500).json({error})
     }
 }

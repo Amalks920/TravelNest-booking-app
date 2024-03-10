@@ -13,7 +13,7 @@ import {
     MagnifyingGlassIcon,
     ChevronUpDownIcon,
   } from "@heroicons/react/24/outline";
-import { useGetAllCouponsQuery } from "../services/couponApiSlice";
+import { useGetAllCouponsLengthQuery, useGetAllCouponsQuery } from "../services/couponApiSlice";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { useState } from "react";
@@ -36,17 +36,18 @@ import CancelCouponModal from "./CancelCouponModal";
 
 
 
-const AllCoupons=({couponsLength})=>{
-    const [pageNumber,setPageNumber]=useState(1)
+const AllCoupons=({couponsLength,pageNumber,setPageNumber})=>{
+ 
     const [open,setOpen]=useState(false)
-    const {data:coupons,isError,isFetching,isLoading,isSuccess}=useGetAllCouponsQuery()
+    const {data:coupons,isError,isFetching,isLoading,isSuccess}=useGetAllCouponsQuery({pageNumber:pageNumber})
+   // const {data:couponsLength}=useGetAllCouponsLengthQuery()
     const [id,setId]=useState(null)
     const [status,setStatus]=useState(null)
-    
+
     return (
       <>
         <CancelCouponModal open={open} setOpen={setOpen} id={id} status={!status}/>
-        <Card className="h-full w-full p-16">
+        <Card className="h-full w-full p-16 pt-0 shadow-none">
         <CardHeader floated={false} shadow={false} className="rounded-none">
           <div className="mb-8 flex items-center justify-between gap-8">
             <div>
@@ -110,13 +111,6 @@ const AllCoupons=({couponsLength})=>{
                         >
                           {code}
                         </Typography>
-                        {/* <Typography
-                                      variant="small"
-                                      color="blue-gray"
-                                      className="font-normal opacity-70 "
-                                    >
-                                      {description}
-                                    </Typography> */}
                       </div>
                     </td>
   
@@ -205,19 +199,21 @@ const AllCoupons=({couponsLength})=>{
           <div className="flex gap-2">
             <Button
               onClick={() => {
-                // if(pageNumber>1 )setPageNumber(pageNumber-1);
+               // setPageNumber(pageNumber+1)
               }}
               variant="outlined"
               size="sm"
+              className="text-[0.5rem]"
             >
               Previous
             </Button>
             <Button
               onClick={() => {
-              //  if(pageNumber<Math.ceil(length.response/4)) setPageNumber(pageNumber+1);
+                if(pageNumber<Math.ceil(length.response/4)) setPageNumber(pageNumber+1);
               }}
               variant="outlined"
               size="sm"
+              className="text-[0.5rem]"
             >
               Next
             </Button>

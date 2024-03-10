@@ -10,33 +10,35 @@ import {
 import { Spinner } from "@material-tailwind/react";
 import ChatList from "./ChatList";
 import { useEffect, useState } from "react";
+import OwnerChatList from "./OwnerChatList";
 
-const OwnerArchived = ({ setRecipientId, socket }) => {
-  const user_id = useSelector(selectUserId);
-  const role = useSelector(selectRole);
+const OwnerArchived = ({ setRecipientId, socket,onlineUsers }) => {
 
-  const [conversations, setConversations] = useState([]);
-  const {
+ const user_id = useSelector(selectUserId);
+ const role = useSelector(selectRole);
+ const [sender_id,setSenderId]=useState()
+ const [conversations, setConversations] = useState([]);
+ const {
     data: conversationsArray,
     isError,
     isFetching,
     isLoading,
     isSuccess,
   } = useGetConversationsQuery({ user_id });
+ const [reFetchConversations] = useReFetchConversationsMutation();
 
-  const [reFetchConversations] = useReFetchConversationsMutation();
-
-  console.log(conversations)
   useEffect(() => {
     setConversations(conversationsArray);
   }, [conversationsArray]);
 
   socket?.on("newMessage", async (message) => {
-    console.log('inside archieved')
+    setSenderId(message.sender)
+    console.log(message)
+    console.log('message new message new message')
     const response = await reFetchConversations({ user_id });
-    console.log('inside archieved')
     setConversations(response.data)
   });
+
 
   if (isLoading || isFetching) return <h1></h1>;
  
@@ -46,10 +48,12 @@ const OwnerArchived = ({ setRecipientId, socket }) => {
       <div
         className="flex flex-col mt-4
        justify-left items-center w-full 
-       py-3 px-2 gap-2 hover:bg-blue-gray-50 hover:cursor-pointer
+       py-3 px-2 gap-2 
         rounded-lg overflow-scroll"
       >
         {conversations?.map((conversation, index) => {
+          console.log(conversation)
+          console.log('conversationsss')
           return (
             <div
               onClick={() => {
@@ -59,17 +63,16 @@ const OwnerArchived = ({ setRecipientId, socket }) => {
               className="w-full"
               key={index}
             >
-              <ChatList
+              <OwnerChatList
                 username={conversation?.participants[0]?.username}
                 sender={conversation?.lastMessage?.sender}
                 text={conversation?.lastMessage?.text}
+                id={conversation?.participants[0]?._id}
+                onlineUsers={onlineUsers}
               />
             </div>
           );
         })}
-        {/* <h2 className="capitalize text-[1.1rem] font-extralight">{conversations[0]?.participants[0]?.username}</h2>
-        <h2 className="capitalize text-[0.9rem] font-extralight">{conversations[0]?.lastMessage?.text}</h2>
-        <h2 className="capitalize text-[0.7rem] font-extralight">{conversations[0]?.updatedAt}</h2> */}
       </div>
     </>
   );

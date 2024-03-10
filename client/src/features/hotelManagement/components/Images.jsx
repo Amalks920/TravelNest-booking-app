@@ -28,14 +28,14 @@ const Images = ({ image, index,hotel_id }) => {
 
     <div
       key={index}
-      className="border-2  border-black  h-[200px] w-[300px] rounded-md"
+      className="  h-[200px] w-[300px] rounded-md bg-cover"
       style={{ backgroundImage: `url(${IMAGE_BASE_URL}/${image})` }}
     >
       <svg
-        onClick={() => {
-          
+
+        onClick={() => {    
           imageToBeRemoved.current = image;
-          setIsModalOpen(true);
+          setIsModalOpen(true)
         }}
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"

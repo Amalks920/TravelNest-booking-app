@@ -11,7 +11,7 @@ import OwnerMessageInput from "./OwnerMessageInput";
 import OwnerChatMessage from "./OwnerChatMessage";
 import OwnerArchived from "./OwnerArchived";
 
-const OwnerChat = ({ socket }) => {
+const OwnerChat = ({ socket ,onlineUsers}) => {
   const role = useSelector(selectRole);
   const { owner_id } = useParams();
   const user_id = useSelector(selectUserId);
@@ -21,17 +21,18 @@ const OwnerChat = ({ socket }) => {
 
 
   return (
-    <div className="grid grid-cols-[25%,70%] grid-rows-[9%,80%,11%] h-[83vh] shadow-md -mt-[7%] w-full ms-[5%]">
-      <div className="row-span-1  col-span-1 border-2 flex flex-col">
-        <h2 className="font-bold text-center mt-4">Messages</h2>
+    <div className="grid grid-cols-[25%,75%] grid-rows-[9%,80%,11%] h-[93vh]
+                     shadow-md -mt-[8.5%] w-full -ms-[1%] overflow-hidden">
+      <div className="row-span-1  col-span-1 border-2 border-e-0 flex flex-col bg-black rounded-s-md">
+        <h2 className="font-bold text-center mt-4 text-white">Messages</h2>
+      </div>
+
+      <div className="row-span-1  col-span-1 border-2 border-s-0 flex flex-col bg-black rounded-e-md">
+        <div className=" border-b-2  flex justify-left items-center"></div>
       </div>
 
       <div className="row-span-1  col-span-1 border-2 flex flex-col">
-        <div className="h-[60px] border-b-2  flex justify-left items-center"></div>
-      </div>
-
-      <div className="row-span-1  col-span-1 border-2 flex flex-col">
-        <OwnerArchived setRecipientId={setRecipientId} socket={socket} />
+        <OwnerArchived setRecipientId={setRecipientId} socket={socket} onlineUsers={onlineUsers}/>
       </div>
 
    

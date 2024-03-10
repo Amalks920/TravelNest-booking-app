@@ -8,7 +8,7 @@ export function NavListMenu() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
     const renderItems = navListMenuItems.map(
         ({ icon, title, description }, key) => (
-            <a href="#" key={key}>
+            <a href="#" key={key} className="hidden">
                 <MenuItem className="flex items-center gap-3 rounded-lg">
                     <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
                         {" "}
@@ -45,6 +45,7 @@ export function NavListMenu() {
                 offset={{ mainAxis: 20 }}
                 placement="bottom"
                 allowHover={true}
+                className="hidden"
             >
                 <MenuHandler>
                     <Typography as="div" variant="small" className="font-medium">
@@ -82,7 +83,7 @@ export function NavListMenu() {
 
 export function NavList() {
     return (
-        <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
+        <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1 hidden">
             <Typography
                 as="a"
                 href="#"

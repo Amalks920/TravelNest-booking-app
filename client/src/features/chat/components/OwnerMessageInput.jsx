@@ -22,7 +22,7 @@ const OwnerMessageInput = ({ recipientId, senderId }) => {
         stroke-width="1.5"
         stroke="currentColor"
         className={`w-7 h-7 top-14  absolute ${
-          role === "user" ? "left-[69%] top-[91%]" : "left-[88%] top-[91.5%]"
+          role === "user" ? "left-[69%] top-[91%]" : "left-[90.5%] top-[94%]"
         } top-11 cursor-pointer ${message.length === 0 ? "hidden" : "flex"}`}
         onClick={(e) => {
           handleMessage();

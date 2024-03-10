@@ -11,7 +11,7 @@ const couponApiSlice=apiSlice.injectEndpoints({
             })
         }),
         getAllCoupons:builder.query({
-            query:()=>`/coupon/get-all-coupons-owner`,
+            query:(data)=>`/coupon/get-all-coupon-owner?pageNumber=${data.pageNumber}`,
             providesTags:['coupons']
         }),
         
