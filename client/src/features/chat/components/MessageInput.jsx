@@ -39,7 +39,7 @@ const MessageInput = ({ recipientId, senderId,lastMessage,setLastMessage }) => {
         }}
         value={message}
         type="text"
-        className={`border-2 border-black rounded-md my-4 ps-[5%] ms-[5%]  text-sm ${
+        className={`border-2 border-black rounded-md my-4 ps-[5%] ms-[5%] text-sm bg-gray-100 ${
           role === "owner" ? "w-[65%] h-[50px] ms-[10%]" : " h-[50px] w-[90%]"
         }`}
         placeholder="type message here"

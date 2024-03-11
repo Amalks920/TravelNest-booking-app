@@ -39,7 +39,7 @@ const OwnerMessageInput = ({ recipientId, senderId }) => {
         value={message}
         type="text"
         className={`border-2 border-black  my-4 ps-[5%] ms-[10%]  text-sm 
-          w-[80%] h-[40px] 
+          w-[80%] h-[40px] bg-gray-100
         `}
         placeholder="type message here"
       />

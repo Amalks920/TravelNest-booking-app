@@ -12,6 +12,7 @@ const OwnerSales = () => {
   const [endDate, setEndDate] = useState(null);
 
   const [bookingSales, setBookingDetails] = useState([]);
+  const [hideHead,setHideHead]= useState(false)
 
   const data = useGetSales(bookingSales, setBookingDetails);
   const componentRef=useRef()
@@ -29,7 +30,8 @@ const OwnerSales = () => {
     <div className=" w-full  min-h-[100vh]">
       <h2 className="text-center mt-[50px] text-[1.1rem] py-5">Sales Report</h2>
       <div ref={componentRef} className="grid grid-flow-row grid-cols-12 mx-6 shadow-md border-t-2 rounded-md">
-        <div className="row-span-1 col-start-5 col-end-13  h-[100px]">
+        
+        <div className={`row-span-1 col-start-5 col-end-13  h-[100px] `}>
           <div className="flex gap-3 justify-around items-center   h-full">
             <input
               onInput={(e) => {
@@ -59,6 +61,7 @@ const OwnerSales = () => {
             </button>
             <button
             onClick={()=>{
+              setHideHead(!hideHead)
               handlePrint()
             }}
              className="text-[0.8rem]">Download Report</button>
@@ -77,9 +80,7 @@ const OwnerSales = () => {
         </div>
 
         {bookingSales?.response?.map((booking, index) => {
-          {
-            console.log(booking);
-          }
+          
           return (
             <div className="row-span-1 col-span-full ">
               <div className="flex justify-around  py-5 ps-[3%] gap-10">

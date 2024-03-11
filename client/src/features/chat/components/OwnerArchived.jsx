@@ -18,6 +18,10 @@ const OwnerArchived = ({ setRecipientId, socket,onlineUsers }) => {
  const role = useSelector(selectRole);
  const [sender_id,setSenderId]=useState()
  const [conversations, setConversations] = useState([]);
+
+ const [selectedIndex,setSelectedIndex]=useState(-1)
+
+
  const {
     data: conversationsArray,
     isError,
@@ -56,6 +60,7 @@ const OwnerArchived = ({ setRecipientId, socket,onlineUsers }) => {
           console.log('conversationsss')
           return (
             <div
+            
               onClick={() => {
                 console.log(conversation)
                 setRecipientId(conversation?.participants[0]?._id);
@@ -69,6 +74,9 @@ const OwnerArchived = ({ setRecipientId, socket,onlineUsers }) => {
                 text={conversation?.lastMessage?.text}
                 id={conversation?.participants[0]?._id}
                 onlineUsers={onlineUsers}
+                index={index}
+                selectedIndex={selectedIndex}
+                setSelectedIndex={setSelectedIndex}
               />
             </div>
           );

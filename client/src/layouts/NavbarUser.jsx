@@ -17,7 +17,7 @@ import {
   Bars3Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import  {Link} from 'react-router-dom';
+import  {Link, useLocation} from 'react-router-dom';
 import { NavList, NavListMenu } from "../components/Navbar/NavComponents";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -38,6 +38,10 @@ export function NavbarUser() {
   const isSearchBarOpen = useSelector(selectIsSearchBarOpen);
   const [isOptionsHidden,setIsOptionsHidden]=useState(true)
   const userName=useSelector(selectUserName)
+  const {pathname}=useLocation()
+
+
+  
   React.useEffect(() => {
     window.addEventListener(
       "resize",
@@ -50,7 +54,7 @@ export function NavbarUser() {
   }
 
   return (
-    <Navbar className="fixed max-w-[100vw] h-[70px] rounded-none z-10 shadow-none">
+    <Navbar className="fixed max-w-[100vw] h-[70px] rounded-none z-10 shadow-none ">
       <div className="flex items-center justify-between text-blue-gray-900">
         <Typography
           as="a"
@@ -63,7 +67,7 @@ export function NavbarUser() {
 
         {!isSearchBarOpen && (
           <div className="">
-            <Search />
+           {pathname!='/home' && <Search />}
           </div>
         )}
 
