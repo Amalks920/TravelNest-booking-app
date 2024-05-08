@@ -3,7 +3,8 @@ const allowedOrigins = [
     "http://localhost:5174",
     "http://localhost:4000",
     "http://localhost:3000",
-    "https://travelnest.shop"
+    "https://travelnest.shop",
+    "*"
 ];
 
 module.exports = allowedOrigins;

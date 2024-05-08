@@ -4,12 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { useSearchMutation } from "../services/searchApiSlice";
 import { selectRoomType, updateAllDetails } from "../../../services/searchSlice";
 import { updateCheckIn,updateCheckOut,updateLocation, updateSearchResult,updateRoomType } from "../../../services/searchSlice";
+import { Spinner } from "@material-tailwind/react";
+import { getFutureDateString, getYesterdayDateString } from "../../../utils/formatDate";
 
 const SearchSectionHome = () => {
   const [checkIn, setCheckInDate] = useState(null);
   const [checkOut, setCheckOutDate] = useState(null);
   const [searchString, setSearchString] = useState(null);
   const [roomType,setRoomType]=useState(null);
+  const [isSearching,setIsSearching]=useState(false)
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -29,39 +32,42 @@ const handleSubmit=async () => {
     navigate(`/search-page`);
   };
 
-  const getYesterdayDateString = () => {
-    const yesterday = new Date();
-    const year = yesterday.getFullYear();
-    const month = String(yesterday.getMonth() + 1).padStart(2, "0");
-    const day = String(yesterday.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  };
-
-  const getFutureDateString = (daysAhead) => {
-    const futureDate = new Date();
-    futureDate.setDate(futureDate.getDate() + daysAhead);
-    const year = futureDate.getFullYear();
-    const month = String(futureDate.getMonth() + 1).padStart(2, "0");
-    const day = String(futureDate.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  };
-
 
   return (
     <>
-      <h2 className="text-white capitalize font-bold sm:text-[2.2rem]  text-[0.8rem]    text-center mb-4">
+      <h2 className="text-white capitalize font-bold sm:text-[1.1rem] xl:text-[1.5rem]  text-[0.8rem]    text-center mb-4">
         Over 174,000+ hotels and homes across 35+ countries
       </h2>
       <div 
-        className="grid sm:grid-cols-[35%,15%,15%,15%,20%] grid-cols-[25%,20%,20%,15%,20%]  grid-rows-1 border-2 sm:w-[70%] w-[90%] sm:h-1/4 h-1/4 rounded-md brightness-95">
+        className="grid sm:grid-cols-[35%,15%,15%,15%,20%] grid-cols-[25%,20%,20%,15%,20%]  grid-rows-1 border-2 sm:w-[90%] md:w-[90%] w-[90%] sm:h-1/4 h-1/4 2xl:w-[70%] rounded-md brightness-95">
         <input
           onChange={(e) => {
             updateLocation(e.target.value)
             setSearchString(e.target.value);
           }}
-          className="sm:ps-3 ps-1   sm:text-[1.1rem]  text-[0.4rem]  capitalize focus:font-bold focus:border-2 border-black"
+          value={searchString}
+          onFocus={()=>{
+            setIsSearching(!isSearching)
+          }}
+          onBlur={()=>{
+            setIsSearching(!isSearching)
+          }}
+          className="sm:ps-3 ps-1    sm:text-[1.1rem]  text-[0.4rem]  capitalize focus:font-bold focus:border-2 border-black"
           placeholder="Search by location"
         />
+        <div className="absolute right-[66%] top-[28%]"> 
+        {isSearching  ? 
+        <svg 
+        onClick={()=>{
+          setSearchString('')
+          updateLocation('')
+        }}
+         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 cursor-pointer">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+      </svg>
+      
+        :null}
+         </div>
         <input
           onChange={(e) => {
             console.log(e.target.value)
@@ -107,7 +113,7 @@ const handleSubmit=async () => {
         onClick={()=>{
             handleSubmit()
         }}
-         type="submit" className="bg-green-600 rounded-md hover:bg-green-800 text-white sm:text-[1.4rem] text-[0.4rem] font-bold uppercase">
+         type="submit" className="bg-green-600 rounded-md hover:bg-green-800 text-white sm:text-[1rem] text-[0.4rem] font-bold uppercase">
           Search
         </button>
       </div>

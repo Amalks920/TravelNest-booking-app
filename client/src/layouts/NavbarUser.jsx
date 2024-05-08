@@ -5,12 +5,6 @@ import {
   Typography,
   Button,
   IconButton,
-  List,
-  ListItem,
-  Menu,
-  MenuHandler,
-  MenuList,
-  MenuItem,
 } from "@material-tailwind/react";
 import {
   ChevronDownIcon,
@@ -121,7 +115,7 @@ export function NavbarUser() {
               }}
               variant="outlined"
               size="sm"
-              color="blue-gray"
+              color="green"
               fullWidth
             >
               {"logout"}
@@ -129,9 +123,11 @@ export function NavbarUser() {
           ) : (
             <Link>
               <Button
+            
                 onClick={() => {
                   handleLogout();
                 }}
+
                 variant="outlined"
                 size="sm"
                 color="blue-gray"
