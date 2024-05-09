@@ -10,7 +10,7 @@ const GoogleAuth = ({role,setErr}) => {
 const dispatch=useDispatch()
 const navigate=useNavigate()
 
-const [googleSignin,{isError,isLoading,isSuccess,isUninitialized}]=useGoogleSignInMutation()
+const [googleSignin]=useGoogleSignInMutation()
 
 return (
 
@@ -24,7 +24,6 @@ onSuccess={async credentialResponse => {
     if(response.error){
         setErr(response.error.data.error)
     } 
-    console.log('response google auth');
     dispatch(setCredentials({ ...response.data.foundUser,accessToken:response.data.accessToken }));
     
     navigate(

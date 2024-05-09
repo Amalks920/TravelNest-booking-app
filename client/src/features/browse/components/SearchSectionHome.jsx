@@ -16,12 +16,11 @@ const SearchSectionHome = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [search, { isError, isLoading, isSuccess, reset }] =
+  const [search] =
     useSearchMutation();
 
 const handleSubmit=async () => { 
     const searchResult=await search({location:searchString, checkIn: checkIn, checkOut: checkOut, roomType: roomType})
-    console.log(searchResult)
     dispatch(updateSearchResult(searchResult.data.response))
 
     dispatch(updateAllDetails({location:searchString, checkIn: checkIn, checkOut: checkOut, roomType: roomType}))
@@ -70,8 +69,6 @@ const handleSubmit=async () => {
          </div>
         <input
           onChange={(e) => {
-            console.log(e.target.value)
-            console.log('e.target.value')
             dispatch(updateCheckIn(e.target.value))
             setCheckInDate(e.target.value);
           }}

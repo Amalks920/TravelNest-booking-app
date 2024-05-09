@@ -1,5 +1,4 @@
 import './App.css'
-// import { Navigate, , redirect } from 'react-router-dom'
 import {  Route, Routes } from 'react-router-dom'
 import Signup from './pages/Signup'
 import Login from './pages/Login';
@@ -155,6 +154,7 @@ function App() {
       <Route
        element={<PageContainer allowedRole={'user'} />}
        >
+        
       <Route path="/home" element={<HomePage />} />
         <Route path="/hotel-details/:hotel_id/:room_id/:checkIn/:checkOut" element={<SingleHotelPage/>} />
         <Route path='/search-page' element={<SearchPage/>}></Route>    

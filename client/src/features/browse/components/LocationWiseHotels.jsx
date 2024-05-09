@@ -2,36 +2,27 @@ import { useEffect, useState } from "react";
 import { IMAGE_BASE_URL } from "../../../data/constants";
 import { useGetHotelsByLocationHomeMutation } from "../services/getAllHotelsApiSlice";
 import { Spinner } from "@material-tailwind/react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { formatDate } from "../../../utils/formatDate";
-import { updateCheckIn, updateSearchResult } from "../../../services/searchSlice";
+import { updateCheckIn } from "../../../services/searchSlice";
 import { updateCheckOut } from "../services/priceSlice";
 import { useDispatch } from "react-redux";
-import { useSearchMutation } from "../services/searchApiSlice";
 
 
 const LocationWiseHotels = ({ location, isLoading: isLoadingLocation }) => {
 
     const [hotelLocation, setLocation] = useState('mumbai')
     const [hotelArrayByLocation, setHotelArrayByLocation] = useState([])
-    const [hotelName,setHotelName]=useState('')
 
     const dispatch=useDispatch()
-    const navigate=useNavigate()
-
-    const [search] =
-    useSearchMutation();
 
 
 
-    const [getHotelsByLocationHome, { isError, isLoading, isSuccess }] = useGetHotelsByLocationHomeMutation()
-
-   const [getHotelRoomByLocation] = useGetHotelsByLocationHomeMutation()
+    const [getHotelsByLocationHome] = useGetHotelsByLocationHomeMutation()
 
 
     const handleGetHotelByLocationHome = async (hotelLocation) => {
         const response = await getHotelsByLocationHome({ location: hotelLocation })
-        console.log(response)
         setHotelArrayByLocation(response.data.response)
     }
 
@@ -72,8 +63,6 @@ const LocationWiseHotels = ({ location, isLoading: isLoadingLocation }) => {
                                 setHotelName(hotelName) 
                               dispatch(updateCheckIn(formatDate(new Date()))) 
                               dispatch(updateCheckOut(formatDate(new Date())))
-                              
-                            //  handleSearch(hotelName)
                             }}
                             className="sm:w-[150px]  sm:h-[80px] md:w-[200px] md:h-[100px] w-[80px] h-[40px]  bg-cover bg-no-repeat  text-white brightness-90 flex 
             justify-left items-end sm:text-[0.7rem] text-[0.2rem] text-left ps-3 pb-3 pe-3 font-bold sm:mt-4 mt-1"

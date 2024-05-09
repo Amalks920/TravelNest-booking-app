@@ -67,6 +67,9 @@ const searchSlice=createSlice({
         },
         clearAmenities:(state,action) =>{
             state.aminities=[]
+        },
+        resetAll:(state,action)=>{
+
         }
     }
 
@@ -85,5 +88,5 @@ export default searchSlice.reducer
 export const {updateIsSearchBarOpen,updateLocation,updateCheckIn,
               updateCheckOut,updateRoomType,updateSearchResult,
               updatePriceRange,updateAllDetails,updateAmenities,
-              removeFromAmenities,clearAmenities
+              removeFromAmenities,clearAmenities,resetAll
              }=searchSlice.actions

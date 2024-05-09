@@ -4,10 +4,8 @@ import LoginForm from "../features/authentication/components/LoginForm"
 const Login=()=>{
     const {pathname}= useLocation()
     console.log(pathname)
-    return (
-        
-        <LoginForm role={pathname==='/login'?'user':pathname==='/owner/login'?'owner':pathname==='/admin/login'?'admin':null}/>
-     
+    return (    
+        <LoginForm role={pathname==='/login'?'user':pathname==='/owner/login'?'owner':pathname==='/admin/login'?'admin':null}/> 
     )
 }
 

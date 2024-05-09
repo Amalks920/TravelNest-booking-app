@@ -1,14 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import { ButtonDefault } from "../../../components/form/ButtonDefault";
 import { FormInput } from "../../../components/form/FormInput";
-import { Auth } from "./Auth";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { selectToken, setCredentials } from "../services/loginSlice";
 import { useLoginMutation } from "../../../services/apiAuthSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { Spinner } from "@material-tailwind/react";
+import { useState } from "react";
 import GoogleAuth from "../../../pages/GoogleAuth";
 import Toast from "../../../layouts/Toast";
 
@@ -27,9 +25,9 @@ const LoginForm = ({ role }) => {
       
       dispatch(setCredentials({ ...userData.data }));
 
-      if (isSuccess) {
-        console.log(console.log(token));
-      }
+      // if (isSuccess) {
+      //   console.log(console.log(token));
+      // }
 
       if (isError) {
         console.log(error);
@@ -46,8 +44,6 @@ const LoginForm = ({ role }) => {
           : null
       );
     } catch (error) {
-      console.log("error");
-      console.log(error);
       setErr(error?.data?.message || "login failed");
     }
   };
@@ -86,14 +82,11 @@ const LoginForm = ({ role }) => {
         >
 
 
-          <div className="row-span-1 col-span-full flex justify-center ">
-            {/* <Auth  text={"SIGNIN WITH GOOGLE"} /> */}
-            <GoogleAuth role={role} setErr={setErr}/>
+          <div className="row-span-1 col-span-full  justify-center hidden">
+            <GoogleAuth role={role} setErr={setErr} />
           </div>
 
           <div className="row-span-1 mt-[10%]">
-            {/* <h1 className="text-2xl">TravelNest</h1> */}
-            {/* <h2 className="text-center text-[2rem]">{'TravelNest'}</h2> */}
 { err &&           <h2 className="text-red-700 capitalize text-sm text-center text-[0.8rem]  w-full">
               <Toast message={err}/>
              
