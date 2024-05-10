@@ -82,9 +82,14 @@ const LoginForm = ({ role }) => {
         >
 
 
-          <div className="row-span-1 col-span-full  justify-center hidden">
-            <GoogleAuth role={role} setErr={setErr} />
+          <div className="row-span-1 col-span-full flex-col  justify-center flex">
+            {/* <GoogleAuth role={role} setErr={setErr} /> */}
+           <h4 className="text-[0.8rem] text-center">Demo Email - owner@gmail.com</h4 > 
+            <h4 className="text-[0.8rem] text-center">Demo password - Amalks7674@</h4 >
           </div>
+         {role=='user' && <div className="row-span-1 col-span-full text-blue-900 justify-center text-[0.9rem]">
+             <a href="/owner/login">Login as owner</a> 
+          </div>}
 
           <div className="row-span-1 mt-[10%]">
 { err &&           <h2 className="text-red-700 capitalize text-sm text-center text-[0.8rem]  w-full">
@@ -151,9 +156,11 @@ const LoginForm = ({ role }) => {
               disabled={isSubmitting}
             />
           </div>
-
+           
         </form>
+
       )}
+    
     </Formik>
   );
 };
