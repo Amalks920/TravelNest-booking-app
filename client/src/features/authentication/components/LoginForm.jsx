@@ -82,14 +82,14 @@ const LoginForm = ({ role }) => {
         >
 
 
-          <div className="row-span-1 col-span-full flex-col  justify-center flex">
+          <div className="row-span-1 col-span-full flex-col   justify-center flex">
             {/* <GoogleAuth role={role} setErr={setErr} /> */}
-           <h4 className="text-[0.8rem] text-center">Demo Email - owner@gmail.com</h4 > 
-            <h4 className="text-[0.8rem] text-center">Demo password - Amalks7674@</h4 >
+          {role==='owner' && <h4 className="text-[0.8rem] text-center">Demo Email - owner@gmail.com</h4 > }
+          {role==='owner' && <h4 className="text-[0.8rem] text-center">Demo password - Amalks7674@</h4 >}
           </div>
-         {role=='user' && <div className="row-span-1 col-span-full text-blue-900 justify-center text-[0.9rem]">
+         {/* {role=='user' && <div className="row-span-1 col-span-full text-blue-900 justify-center text-[0.9rem]">
              <a href="/owner/login">Login as owner</a> 
-          </div>}
+          </div>} */}
 
           <div className="row-span-1 mt-[10%]">
 { err &&           <h2 className="text-red-700 capitalize text-sm text-center text-[0.8rem]  w-full">
@@ -147,7 +147,7 @@ const LoginForm = ({ role }) => {
           </Link>
           </div>
 
-          <div className="row-span-1 mt-[35%]">
+          <div className="row-span-1 mt-[35%] pt-1">
             <ButtonDefault
               loading={isLoading}
               value="submit"
@@ -155,6 +155,8 @@ const LoginForm = ({ role }) => {
               onSubmit={handleSubmit}
               disabled={isSubmitting}
             />
+             {role==='user' && <a className="border-2 absolute  border-black top-[600px] left-[420px] h-[40px] w-[330px]  text-[0.8rem] text-black font-bold text-center pt-2
+              rounded-md text ms-[180px] mt-3" href="/owner/login">Login as owner</a> }
           </div>
            
         </form>
