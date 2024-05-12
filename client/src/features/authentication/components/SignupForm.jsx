@@ -1,22 +1,17 @@
 import { Link, useNavigate } from "react-router-dom";
 import { ButtonDefault } from "../../../components/form/ButtonDefault";
-import { CheckboxDefault } from "../../../components/form/CheckboxDefault";
 import { FormInput } from "../../../components/form/FormInput";
-import { Auth } from "./Auth";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-//import signup from "../services/signup";
 import {
   getSignupStatus,
   getSignupError,
-  selectData,
   createUser,
 } from "../services/signupSlice";
 import { Spinner } from "@material-tailwind/react";
-import { useVerifyOtpMutation } from "../services/verifyOtpApiSlice";
-import { sendEmail } from "../services/verifyEmailSlice";
-import { useVerifyEmailMutation, useVerifyEmailSignupMutation } from "../services/verifyEmailApiSlice";
+import { useVerifyEmailSignupMutation } from "../services/verifyEmailApiSlice";
+import { signupValidation } from "../../../utils/validationObjects";
 
 const SignupForm = ({ role }) => {
   const error = useSelector(getSignupError);
@@ -24,7 +19,7 @@ const SignupForm = ({ role }) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [verifyEmailSignup,{isError,isLoading,isSuccess,isUninitialized,error:signupError}]=useVerifyEmailSignupMutation()
+  const [verifyEmailSignup]=useVerifyEmailSignupMutation()
 
   const _onSave =async  (values) => {
     
@@ -71,28 +66,7 @@ const SignupForm = ({ role }) => {
         password: "",
         repassword: "",
       }}
-      validationSchema={Yup.object({
-        username: Yup.string()
-          .min(6, "username is too short - should be 6 chars minimum")
-          .required(),
-        email: Yup.string()
-          .email("Invalid email address")
-          .required("Email is Required"),
-        phone: Yup.string()
-        .matches(/^[0-9]{10}$/, 'Invalid phone number')
-        .required('Phone is required'),
-        
-        password: Yup.string()
-          .required("Password is Required")
-          .min(8, "Password should be 8 chars minimum")
-          .matches(
-            /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-            "at least one Uppercase,Lowercase,Number and a special character"
-          ),
-        repassword: Yup.string()
-          .required("Password Required")
-          .oneOf([Yup.ref("password")], "Passwords does not match"),
-      })}
+      validationSchema={signupValidation}
       onSubmit={(values) => {
         _onSave(values);
         //signup(values)
@@ -195,7 +169,7 @@ const SignupForm = ({ role }) => {
           </div>
 
           <Link to={"/login"} className="">
-            <p className="font-medium text-sm text-black">
+            <p className="font-bold text-sm text-black">
               Already Have an Account?
             </p>
           </Link>
