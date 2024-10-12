@@ -5,12 +5,13 @@ import {
 } from "../services/getAHotelForUserApiSlice";
 //import { selectCheckIn, selectCheckOut } from "../services/priceSlice";
 import { selectCheckIn,selectCheckOut } from "../../../services/searchSlice";
+import { parseDate } from "../../../utils/formatDate";
 
 const useGetAHotel = (hotel_id, room_id) => {
 
   const checkIn=useSelector(selectCheckIn)
   const checkOut=useSelector(selectCheckOut)
-  
+  console.log(checkIn,checkOut)
   const {
     data: hotel,
     isError,
@@ -28,7 +29,7 @@ const useGetAHotel = (hotel_id, room_id) => {
     isLoading: isLoadingRoom,
     isSuccess: isSuccessRoom,
     isUninitialized: isUninitializedRoom,
-  } = useGetARoomForUserQuery({ room_id,checkIn,checkOut });
+  } = useGetARoomForUserQuery({ room_id,checkIn:parseDate(checkIn),checkOut:parseDate(checkOut) });
 
 
   return {

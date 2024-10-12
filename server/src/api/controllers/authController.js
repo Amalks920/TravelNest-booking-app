@@ -11,6 +11,8 @@ const otpGenerator = require("otp-generator");
 const { findUserHelper } = require("../helpers/userHelper");
 const { createWalletHelper } = require("../helpers/walletHelper");
 const { OAuth2Client } = require("google-auth-library");
+const dotEnv=require('dotenv')
+dotEnv.config()
 
 const client = new OAuth2Client();
 

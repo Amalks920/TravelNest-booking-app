@@ -399,28 +399,6 @@ if(!roomType) console.log(true)
 
     ],
   }
-  // const matchQuery2= {
-  //   $and: [
-  //     {
-  //       location: {
-  //         $regex: `${location}`,
-  //         $options: "i",
-  //       },
-  //     },
-  //     {
-  //       _id: {
-  //         $nin: collisions,
-  //       },
-  //     },
-
-  //     // { rate: { $gte: Number(priceRange?.min) || 0 } }, // min price
-
-  //     // { rate: { $lte: Number(priceRange?.max) || Number.MAX_SAFE_INTEGER } }, // max price
-
-  //     //   { roomType: roomType },
-
-  //   ],
-  // }
 
   const pipeline=[
     {
@@ -926,6 +904,33 @@ const getHotelRoomsByLocationHelper= async (location) => {
   }
 }
 
+function findRoomType(noOfAdults, noOfChildrens) {
+  // Adjust children count by treating every 2 children as 1 adult
+  let childrenCount = Math.floor(noOfChildrens / 2);
+  // Calculate total "adult equivalent" people
+  let totalPeople = noOfAdults + childrenCount;
+
+  // Determine the room type based on total people
+  if (totalPeople < 2) {
+      return 'single';
+  } else if (totalPeople === 2) {
+      return 'double';
+  } else if (totalPeople >= 3 && totalPeople <= 4) {
+      return 'suite';
+  } else if (totalPeople >= 5 && totalPeople <= 6) {
+      return 'family';
+  } else if (totalPeople >= 7 && totalPeople <= 8) {
+      return 'adjoining';
+  } else if (totalPeople >= 9 && totalPeople <= 10) {
+      return 'presidential';
+  } else {
+      return 'penthouse'; // For more than 10 people
+  }
+}
+
+
+
+
 module.exports = {
   addRoomHelper,
   addRoomToHotel,
@@ -949,5 +954,6 @@ module.exports = {
   getHotelRoomsByLocationHelper,
   filterRoomsByLocationHelper,
   changeRoomNumberHelper,
-  searchRoomsByHotelName
+  searchRoomsByHotelName,
+  findRoomType
 };

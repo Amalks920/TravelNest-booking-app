@@ -1,67 +1,91 @@
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Typography,
-  Button,
-  Tooltip,
-  IconButton,
-  Chip,
-} from "@material-tailwind/react";
-import { Link } from "react-router-dom";
-import ToggleIcon from "../../../components/ToggleIcon";
-import ToggleIconLeft from "../../../components/ToggleIconLeft";
-import { IMAGE_BASE_URL } from "../../../data/constants";
-import { formatDate } from "../../../utils/formatDate";
+import React, { useState } from 'react';
+import { Button } from '@material-tailwind/react';
+import { IMAGE_BASE_URL } from '../../../data/constants';
 
-const Cards = ({ text,rate,roomType,room_id,hotel_id,images }) => {
+const Cards = ({hotels}) => {
+  const allCards = [
+    {
+      id: 1,
+      title: 'Website Review Check',
+      description: 'The place is close to Barceloneta Beach and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main nightlife in Barcelona.',
+      image: 'https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+    },
+    {
+      id: 2,
+      title: 'Website Review Check',
+      description: 'The place is close to Barceloneta Beach and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main nightlife in Barcelona.',
+      image: 'https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+    },
+    {
+      id: 3,
+      title: 'Website Review Check',
+      description: 'The place is close to Barceloneta Beach and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main nightlife in Barcelona.',
+      image: 'https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+    },
+    {
+      id: 4,
+      title: 'Website Review Check',
+      description: 'The place is close to Barceloneta Beach and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main nightlife in Barcelona.',
+      image: 'https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+    },
+    {
+      id: 5,
+      title: 'One&Only The Palm Dubai',
+      description: 'One&Only The Palm Dubai',
+      image: 'https://imgcy.trivago.com/c_fill,d_dummy.jpeg,e_sharpen:60,f_auto,h_267,q_40,w_400/partner-images/1e/7f/3bd3064388540e0f719635348c90edbfc2abeae2709c491ef83a903e0a2d.jpeg',
+    },
+  ];
 
-  console.log(images)
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const cardsToShow = 3;
+
+  const nextCards = () => {
+    if (currentIndex + cardsToShow < allCards.length) {
+      setCurrentIndex(currentIndex + cardsToShow);
+    }
+  };
+
+  const prevCards = () => {
+    if (currentIndex - cardsToShow >= 0) {
+      setCurrentIndex(currentIndex - cardsToShow);
+    }
+  };
+
   return (
-    <Link to={`/hotel-details/${hotel_id}/${room_id}/${formatDate(new Date())}/${formatDate(new Date())}`} className="col-span-1 row-span-1 bg-cover rounded-sm brightness-95" style={{backgroundImage:`url(${IMAGE_BASE_URL+'/'+images[0]})`}}>
-
-
-      <div className="w-[400px] h-[200px] flex  p-5 flex-col-reverse">
+      <div className='flex mb-10 gap-8 max-w-[100%]  overflow-scroll ps-[10px] pt-[12px]'>
        
-        <h2 className="text-white font-bold">{roomType}</h2>
-        <div className="flex justify-between">
-          <h2 className="text-white font-semibold">₹ {rate}</h2>
-        </div>
-      </div>
-      {/* <div
-        class="relative flex flex-col text-gray-700 bg-white   bg-clip-border  w-[350px]">
-        <div class="relative mx-4  overflow-hidden text-gray-700 bg-white bg-clip-border  h-[200px]">
-          <img
-            src={IMAGE_BASE_URL + '/' + `${images[1]}`}
-            alt="card-image" className="object-cover bg-black bg-gradient-to-b w-full h-full brightness-95" />
-
-
-          <div class="p-6 relative -top-44 ">
-            <div class="flex items-center justify-between mb-2">
-              <p class="block font-sans  antialiased  leading-relaxed text-white text-sm capitalize">
-                {text}
-              </p>
-              <p class="block font-sans text-base antialiased font-medium leading-relaxed text-white">
-              </p>
+        {
+          hotels.map(({images,hotelName},index)=>{
+            return (
+              <div className='rounded-2xl max-w-[313px] shadow-2xl min-w-[313px] overflow-x-scroll'>
+              <img className='w-full h-[200px]  ' src={IMAGE_BASE_URL+'/'+images[0]} alt="" />
+              
+              <div className='px-4 pb-2'>
+              <h1
+                     style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif" }}
+              className='font-bold text-lg p-[4px] mb-[4px] line-clamp-1'>{hotelName}</h1>
+              <div>
+                <span>sdkfl</span>
+                <span>ff</span>
+              </div>
+  
+              <div>
+                <span>ff</span>
+                <span>ff</span>
+              </div>
+  
+              <Button color='blue' className='w-full mt-[16px]'>Check prices</Button>
+              </div>
             </div>
-            <p class="block font-sans text-sm antialiased font-normal leading-normal text-white opacity-75">
-            </p>
-          </div>
+            )
+          })
+        }
 
-        </div>
-        <div class="p-3 ">
-          <div class="flex items-center justify-between ">
-
-
-          </div>
-
-        </div>
-
-      </div> */}
-    </Link>
+      </div>
   );
 }
 
+export default Cards;
 
-export default Cards
+
+

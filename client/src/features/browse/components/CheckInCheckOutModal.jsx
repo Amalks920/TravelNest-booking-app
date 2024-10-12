@@ -12,13 +12,14 @@ import {
 } from "@material-tailwind/react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  selectCheckIn,
-  selectCheckOut,
-  updateCheckIn,
-  updateCheckOut,
+  // selectCheckIn,
+  // selectCheckOut,
+  // updateCheckIn,
+  // updateCheckOut,
   updateNoOfAvailableRooms,
   updatePrice,
 } from "../services/priceSlice";
+
 
 
 
@@ -26,16 +27,21 @@ import { useGetAllRoomsInHotelMutation } from "../services/getAllHotelsApiSlice"
 import { useCheckAvailabilityOfRoomMutation } from "../services/checkAvailabilityApiSlice";
 import { updateRooms } from "../services/roomsSlice";
 
-import {selectCheckIn as searchCheckIn,selectCheckOut as searchCheckOut} from "../../../services/searchSlice";
+import {selectCheckIn as searchCheckIn,selectCheckOut as searchCheckOut, selectCheckIn, selectCheckOut,
+  updateCheckIn,
+  updateCheckOut,
+} from "../../../services/searchSlice";
+import { format } from "date-fns";
+import { parseDate } from "../../../utils/formatDate";
 
 const CheckInCheckOutModal = ({ room_id,checkIn,checkOut,rate,open,setOpen }) => {
-  console.log(checkIn)
+  console.log(checkIn,checkOut)
   
   const handleOpen = () => setOpen((cur) => !cur);
   const checkInDate = useSelector(selectCheckIn);
   const checkOutDate = useSelector(selectCheckOut);
-  const checkInSearch=useSelector(searchCheckIn)
-  const checkOutSearch=useSelector(searchCheckOut)
+  // const checkInSearch=useSelector(searchCheckIn)
+  // const checkOutSearch=useSelector(searchCheckOut)
   const dispatch = useDispatch();
 
   const getYesterdayDateString = () => {
@@ -45,6 +51,10 @@ const CheckInCheckOutModal = ({ room_id,checkIn,checkOut,rate,open,setOpen }) =>
     const day = String(yesterday.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
+
+  useEffect(()=>{
+    console.log(parseDate(checkInDate))
+  },[checkInDate])
 
 
   const getFutureDateString = (daysAhead) => {
@@ -58,10 +68,10 @@ const CheckInCheckOutModal = ({ room_id,checkIn,checkOut,rate,open,setOpen }) =>
 
 
 
-  useEffect(()=>{
-    dispatch(updateCheckIn(checkInSearch))
-    dispatch(updateCheckOut(checkOutSearch))
-  },[])
+  // useEffect(()=>{
+  //   dispatch(updateCheckIn(checkIn))
+  //   dispatch(updateCheckOut(checkOut))
+  // },[])
 
    const [checkAvailabilityOfRoom, { isError, isLoading, isSuccess, reset }] =
      useCheckAvailabilityOfRoomMutation();
@@ -75,7 +85,7 @@ const CheckInCheckOutModal = ({ room_id,checkIn,checkOut,rate,open,setOpen }) =>
     
     try {
        console.log(checkInDate,checkOutDate)
-      const response=await checkAvailabilityOfRoom({room_id,checkIn:checkInDate,checkOut:checkOutDate})
+      const response=await checkAvailabilityOfRoom({room_id,checkIn:checkIn.split('T')[0],checkOut:checkOut.split('T')[0]})
       console.log(response.data.totalAvailableRoom)
       dispatch(updateNoOfAvailableRooms(response.data.totalAvailableRoom || 0))
       // const response = await getAllRoomsInHotel({
@@ -133,13 +143,12 @@ const CheckInCheckOutModal = ({ room_id,checkIn,checkOut,rate,open,setOpen }) =>
               Check In
             </Typography>
             <Input
-              onInput={(e) => {
-         
+              onInput={(e) => {          
                 dispatch(updateCheckIn(e.target.value));
               }}
               min={getYesterdayDateString()}
-              max={checkOutDate?checkOutDate:checkOut || getFutureDateString(10)}
-              value={checkInDate?checkInDate:checkIn}
+              max={parseDate(checkOutDate) || getFutureDateString(10)}
+              value={parseDate(checkInDate)}
               label="date"
               type="date"
               size="lg"
@@ -153,14 +162,13 @@ const CheckInCheckOutModal = ({ room_id,checkIn,checkOut,rate,open,setOpen }) =>
             >
               Check Out
             </Typography>
-
             <Input
               onInput={(e) => {
                 dispatch(updateCheckOut(e.target.value));
               }}
-              min={checkInDate || getYesterdayDateString()}
+              min={parseDate(checkInDate) || getYesterdayDateString()}
               max={getFutureDateString(10)}
-              value={checkOutDate?checkOutDate:checkOut}
+              value={parseDate(checkOutDate)}
               label="date"
               type="date"
               size="lg"

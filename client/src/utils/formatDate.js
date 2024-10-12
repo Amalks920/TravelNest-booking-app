@@ -29,3 +29,25 @@ export const getYesterdayDateString = () => {
       timeZone: "Asia/Kolkata",
     }) 
   }
+
+
+  export const parseDate = (dateToBeParsed) => {
+    if(!dateToBeParsed) return getYesterdayDateString()
+    let date = new Date(dateToBeParsed);
+    date.setDate(date.getDate());
+    return date.toISOString().split('T')[0]; // Convert back to YYYY-MM-DD
+  };
+
+
+  export const getDaysDifference = (startDate, endDate) => {
+    const date1 = new Date(startDate);
+    const date2 = new Date(endDate);
+    
+    // Difference in time (milliseconds)
+    const diffInTime = date2 - date1;
+    
+    // Convert time difference from milliseconds to days
+    const diffInDays = diffInTime / (1000 * 3600 * 24);
+    
+    return diffInDays;
+  };

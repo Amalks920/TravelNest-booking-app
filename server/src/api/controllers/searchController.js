@@ -2,7 +2,7 @@ const {
   findHotelByLocationHelper,
   searchHotels,
 } = require("../helpers/hotelHelper");
-const { searchRoomsHotel, searchRoomsByHotelName } = require("../helpers/roomHelper");
+const { searchRoomsHotel, searchRoomsByHotelName, findRoomType } = require("../helpers/roomHelper");
 
 const searchController = async (req, res, next) => {
   try {
@@ -37,7 +37,10 @@ const roomSearchController = async (req, res, next) => {
   const c=res.locals.collisions
 
   const location = req.query.search; 
-  const roomType = req.query.roomType || null;
+  const noOfChildrens=req.query.noOfChildrens
+  const noOfAdults=req.query.noOfChildrens;
+  const roomType = findRoomType(noOfChildrens,noOfAdults)
+
 
 
   const min = req.query.min || null;

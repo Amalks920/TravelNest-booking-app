@@ -1,14 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getYesterdayDateString } from "../utils/formatDate";
 
 const initialState={
     searchResult:[],
-    isSearchBarOpen:false,
     priceRange:{},
     location:'',
-    checkIn:'',
-    checkOut:'',
+    checkIn:getYesterdayDateString(),
+    checkOut:getYesterdayDateString(),
+    noOfAdults:0,
+    noOfChildrens:0,
     roomType:'',
-    aminities:[]
+    aminities:[],
   
 }
 
@@ -26,7 +28,7 @@ const searchSlice=createSlice({
             state.location=action.payload
             state.priceRange={}
         },
-        updateCheckIn:(state,action)=>{
+        updateCheckIn:(state,action)=>{    
             state.checkIn=action.payload
             state.priceRange={}
         },
@@ -34,6 +36,12 @@ const searchSlice=createSlice({
             state.checkOut=action.payload
             state.priceRange={}
         },
+        updateNoOfGuests:(state,action)=>{
+             state.noOfAdults=action.payload.noOfAdults
+             state.noOfChildrens=action.payload.noOfChildrens
+        },
+
+        /////////////////////////////////////
         updateRoomType:(state,action)=>{
             state.roomType=action.payload
             state.priceRange={}
@@ -84,9 +92,13 @@ export const selectSearchResult=(state)=>state.persistedSlice.search.searchResul
 export const selectPriceRange=(state) => state.persistedSlice.search.priceRange;
 export const selectAminities=(state) => state.persistedSlice.search.aminities;
 
+export const selectNoOfChildrens=(state) => state.persistedSlice.search.noOfChildrens
+export const selectNoOfAdults=(state) => state.persistedSlice.search.noOfAdults
+
 export default searchSlice.reducer
 export const {updateIsSearchBarOpen,updateLocation,updateCheckIn,
               updateCheckOut,updateRoomType,updateSearchResult,
               updatePriceRange,updateAllDetails,updateAmenities,
-              removeFromAmenities,clearAmenities,resetAll
+              removeFromAmenities,clearAmenities,resetAll,
+              updateNoOfGuests
              }=searchSlice.actions

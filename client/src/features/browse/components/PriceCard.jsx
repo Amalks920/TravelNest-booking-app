@@ -23,7 +23,7 @@ import {
 } from "../services/priceSlice";
 
 //import { selectCheckIn,selectCheckOut } from "../../../services/searchSlice";
-import { selectCheckIn, selectCheckOut } from "../services/priceSlice";
+import { selectCheckIn, selectCheckOut } from "../../../services/searchSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { loadStripe } from "@stripe/stripe-js";
 import useHandlePayment from "../hooks/useHandlePayment";
@@ -42,6 +42,7 @@ import {
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { updateCheckOutDetails } from "../../walletPayment/service/walletCheckOutSlice";
+import { getDaysDifference, parseDate } from "../../../utils/formatDate";
 
 const  PriceCard = ({ rate, roomType, hotel_id, room_id, open, setOpen,couponModalOpen, setCouponModalOpen}) => {
   const selectedCheckInDate = useSelector(selectCheckIn);
@@ -49,7 +50,7 @@ const  PriceCard = ({ rate, roomType, hotel_id, room_id, open, setOpen,couponMod
   const totalAvailableRooms = useSelector(selectAvailableRoom);
   const price = useSelector(selectPrice);
 
-  const noOfDays = useSelector(selectNoOfDays);
+  //const noOfDays = useSelector(selectNoOfDays);
   const user_id = useSelector(selectUserId);
   const couponCode=useSelector(selectCouponCode)
   const discountAmount=useSelector(selectDiscountAmount)
@@ -99,8 +100,8 @@ const  PriceCard = ({ rate, roomType, hotel_id, room_id, open, setOpen,couponMod
   return (
     <Formik
       initialValues={{
-        checkInDate: selectedCheckInDate,
-        checkOutDate: selectedCheckOutDate,
+        checkInDate: parseDate(selectedCheckInDate),
+        checkOutDate: parseDate(selectedCheckOutDate),
       }}
     >
       {({
@@ -131,8 +132,8 @@ const  PriceCard = ({ rate, roomType, hotel_id, room_id, open, setOpen,couponMod
                 }}
                 className=" border-[0.7px] cursor-pointer ps-4 border-gray-600 h-[60px] w-[170px] rounded-tl-lg"
                 type="date"
-                value={selectedCheckInDate}
-                datePassed={selectedCheckInDate}
+                value={parseDate(selectedCheckInDate)}
+                datePassed={parseDate(selectedCheckInDate)}
                 setDate={setCheckInDate}
                 name="checkInDate"
                 label={"Check in"}
@@ -145,9 +146,9 @@ const  PriceCard = ({ rate, roomType, hotel_id, room_id, open, setOpen,couponMod
                 }}
                 type="date"
                 className="h-[60px] border-l-0 ps-4 cursor-pointer  border-[0.7px]  w-[170px]  border-gray-600 rounded-sm rounded-tr-lg"
-                value={selectedCheckOutDate}
-                datePassed={selectedCheckOutDate}
-                //  setDate={setCheckOutDate}
+                value={parseDate(selectedCheckOutDate)}
+                datePassed={parseDate(selectedCheckOutDate)}
+                 setDate={setCheckOutDate}
                 name="checkOutDate"
                 label={"Check out"}
                 readOnly
@@ -201,12 +202,12 @@ const  PriceCard = ({ rate, roomType, hotel_id, room_id, open, setOpen,couponMod
                 if (token && role === "user") {
                   const response = await payment({
                     roomDetails,
-                    totalPrice: Math.round(price),
+                    totalPrice: getDaysDifference(checkInDate,checkOutDate)*rate,
                     checkInDate: selectedCheckInDate,
                     checkOutDate: selectedCheckOutDate,
                     hotel_id,
                     totalNoRooms: noOfRooms,
-                    noOfDays: noOfDays,
+                    noOfDays: getDaysDifference(checkInDate,checkOutDate),
                     couponCode:couponCode
                   });
 
@@ -246,7 +247,7 @@ const  PriceCard = ({ rate, roomType, hotel_id, room_id, open, setOpen,couponMod
                     totalPrice: Math.round(price),
                     totalNoRooms: noOfRooms,
                     hotel_id: hotel_id,
-                    noOfDays: noOfDays,
+                    noOfDays: getDaysDifference(checkInDate,checkOutDate),
                   })
                 );
               }}
@@ -263,7 +264,7 @@ const  PriceCard = ({ rate, roomType, hotel_id, room_id, open, setOpen,couponMod
             <div className="mt-[10px] flex flex-col justify-center items-center  w-full">
               <div className="w-[100%] flex  justify-between mx-3 px-2">
                 <h2 className="font-extralight text-[1rem]">price :</h2>
-                <h2 className="me-3 font-extralight text-[1rem]">₹ {Math.round(price)}</h2>
+                <h2 className="me-3 font-extralight text-[1rem]">₹ {getDaysDifference(checkInDate,checkOutDate)*rate}</h2>
               </div>
 
               <div className="w-[100%] flex  justify-between mx-3 px-2 mt-[20px]">

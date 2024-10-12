@@ -37,6 +37,9 @@ const payment = async (req, res, next) => {
       roomIds.push(room.id);
     });
 
+    console.log(req.body)
+    console.log('req.body');
+    
     const roomDetailsFromDb = await getRoomDetailsByIdHelper(roomIds);
     let totalPrice = 0;
 

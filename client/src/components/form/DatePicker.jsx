@@ -6,7 +6,7 @@ import {
   PopoverContent,
 } from "@material-tailwind/react";
 import { format } from "date-fns";
-import { DayPicker,isMatch } from "react-day-picker";
+import { DayPicker } from "react-day-picker";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -14,65 +14,69 @@ import {
   selectCheckOut,
   updateCheckIn,
   updateCheckOut,
-} from "../../features/browse/services/priceSlice";
+} from "../../services/searchSlice";
+import { getFutureDateString, getYesterdayDateString, parseDate } from "../../utils/formatDate";
 
-export default function DatePicker({
-  name,
-  label,
-  datePassed,
-  className,
-  min,
-  max,
-}) {
-  const [date, setDate] = React.useState(datePassed);
-  // const [checkIn,setCheckIn]=useState('')
-  // const [checkOut,setCheckOut]=useState('')
-  // const [isDayDisabled,setIsDayDisabled]=useState(false)
-  const checkIn=useSelector(selectCheckIn)
-  const checkOut=useSelector(selectCheckOut)
-  
+export default function DatePicker({ label }) {
+  const [date, setDate] = React.useState();
+
+  const checkIn = useSelector(selectCheckIn);
+  const checkOut = useSelector(selectCheckOut);
+
+  console.log(checkIn,checkOut)
   const dispatch = useDispatch();
-
-  const [selectedDate, setSelectedDate] = useState(null);
-
-  const isDateBeforeToday = (date) => {
-    const today = new Date();
-    return date <= today;
-  };
-
+  // Set boundaries for DayPicker based on the label (check-in or check-out)
+  const fromDate = label === "checkin" ? new Date() : checkIn || new Date();  // For check-in, min is today, for check-out, min is check-in date
+  const toDate = getFutureDateString(10); // Max date is 10 days from today
 
   return (
-    <div className={`p-1`}>
-      <Popover placement="bottom">
-        <PopoverHandler>
+    <div className={`p-1 !w-[140px]`}>
+      <Popover className="!w-[140px]" placement="bottom">
+        <PopoverHandler className="!w-[140px]">
           <Input
             readOnly={true}
-            className={className}
-            min={new Date(Date.now()).toISOString().split('T')[0]}
-            max={new Date(Date.now()).toISOString().split('T')[0]}
-            label={label}
-            value={datePassed ? format(datePassed, "PPP") : ""}
+            className={'!w-[100px]'}
+            min={
+              label === 'checkin' ? getYesterdayDateString() : parseDate(checkIn) || getYesterdayDateString()
+            }
+            max={label === 'checkin' ? parseDate(checkOut) || getFutureDateString(10) : getFutureDateString(10)}
+            value={date
+              ? format(date, "PPP")
+              : label === 'checkin' && checkIn
+              ? format(checkIn, "PPP")
+              : label === "checkout" && checkOut
+              ? format(checkOut, "PPP")
+              : ''}
+            variant="static"
           />
         </PopoverHandler>
         <PopoverContent>
           <DayPicker
-          
             mode="single"
-            selected={datePassed}
-            onDayClick={(value)=>{
+            selected={date}
+            onSelect={(el) => {
 
-              if(!isDateBeforeToday(value)){
-                name === "checkInDate"
-                ? dispatch(updateCheckIn(value))
-                : name==='checkOutDate' && value>= checkIn? dispatch(updateCheckOut(value)):null
+              console.log(el)
+              console.log(fromDate);
+              console.log(toDate);
+              
+              
+              if (el >= fromDate && el <= new Date(toDate)) {
+                // Ensure valid date selection
+                if (label === 'checkin') {
+                  dispatch(updateCheckIn(el));
+                } else if (label === 'checkout') {
+                  dispatch(updateCheckOut(el));
+                }
+                setDate(el);
               }
-
+             
             }}
-            
-
-  
-            showOutsideDays
-            className=" relative z-50 shadow-2xl bg-white"
+            disabled={{
+              before: fromDate,  // Disable dates before the valid fromDate
+              after: toDate,      // Disable dates after the valid toDate
+            }}
+            className="relative z-50 shadow-2xl bg-white"
             classNames={{
               caption: "flex justify-center py-2 mb-4 relative items-center",
               caption_label: "text-sm font-medium text-gray-900",
@@ -93,7 +97,7 @@ export default function DatePicker({
               day_today: "rounded-md bg-gray-200 text-gray-900",
               day_outside:
                 "day-outside text-gray-500 opacity-50 aria-selected:bg-gray-500 aria-selected:text-gray-900 aria-selected:bg-opacity-10",
-              day_disabled: "text-gray-500 opacity-50",
+              day_disabled: "text-gray-500 opacity-50",  // Disabled dates
               day_hidden: "invisible",
             }}
             components={{
