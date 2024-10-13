@@ -89,6 +89,7 @@ const  PriceCard = ({ rate, roomType, hotel_id, room_id, open, setOpen,couponMod
       const stripe = await loadStripe(
         "pk_test_51McT8uSJpQVF6jBTNlHodKtVtviDTJ5I2ApQv9ag4Nr4iwvzERcDxveeDcbIWA8TYpPIM2XqbYqSjAtlUfa7kldc00nshn8huB"
       );
+
       stripe.redirectToCheckout({
         sessionId: id,
       });
@@ -200,17 +201,22 @@ const  PriceCard = ({ rate, roomType, hotel_id, room_id, open, setOpen,couponMod
               }
               onClick={async () => {
                 if (token && role === "user") {
+
+                 
                   const response = await payment({
                     roomDetails,
-                    totalPrice: getDaysDifference(checkInDate,checkOutDate)*rate,
+                    totalPrice: getDaysDifference(checkInDate,checkOutDate)*rate*noOfRooms,
                     checkInDate: selectedCheckInDate,
                     checkOutDate: selectedCheckOutDate,
                     hotel_id,
                     totalNoRooms: noOfRooms,
                     noOfDays: getDaysDifference(checkInDate,checkOutDate),
-                    couponCode:couponCode
+                    couponCode:couponCode,
+                    user_id:user_id
                   });
 
+                  debugger
+                    console.log(response)
                   dispatch(updateCheckIn(checkInDate));
                   dispatch(updateCheckOut(checkOutDate));
                   handlePayment(response.data.id);
@@ -264,7 +270,7 @@ const  PriceCard = ({ rate, roomType, hotel_id, room_id, open, setOpen,couponMod
             <div className="mt-[10px] flex flex-col justify-center items-center  w-full">
               <div className="w-[100%] flex  justify-between mx-3 px-2">
                 <h2 className="font-extralight text-[1rem]">price :</h2>
-                <h2 className="me-3 font-extralight text-[1rem]">₹ {getDaysDifference(checkInDate,checkOutDate)*rate}</h2>
+                <h2 className="me-3 font-extralight text-[1rem]">₹ {(getDaysDifference(selectedCheckInDate,selectedCheckOutDate)+1)*rate*noOfRooms}</h2>
               </div>
 
               <div className="w-[100%] flex  justify-between mx-3 px-2 mt-[20px]">

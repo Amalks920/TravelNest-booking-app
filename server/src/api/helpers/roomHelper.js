@@ -904,12 +904,13 @@ const getHotelRoomsByLocationHelper= async (location) => {
   }
 }
 
-function findRoomType(noOfAdults, noOfChildrens) {
+function findRoomType( noOfChildrens,noOfAdults) {
+  console.log(noOfChildrens)
   // Adjust children count by treating every 2 children as 1 adult
   let childrenCount = Math.floor(noOfChildrens / 2);
   // Calculate total "adult equivalent" people
-  let totalPeople = noOfAdults + childrenCount;
-
+  let totalPeople = Number(noOfAdults) + Number(childrenCount);
+  console.log(totalPeople)
   // Determine the room type based on total people
   if (totalPeople < 2) {
       return 'single';

@@ -3,6 +3,7 @@ import { getYesterdayDateString } from "../utils/formatDate";
 
 const initialState={
     searchResult:[],
+    isResultLoading:false,
     priceRange:{},
     location:'',
     checkIn:getYesterdayDateString(),
@@ -51,6 +52,9 @@ const searchSlice=createSlice({
             console.log('--00---j000>')
             state.searchResult=action.payload
         },
+        updateIsResultLoading:(state,action)=>{
+            state.isResultLoading=action.payload
+        },
         updatePriceRange:(state,action)=>{
             console.log(action.payload)
             state.priceRange=action.payload;
@@ -94,11 +98,12 @@ export const selectAminities=(state) => state.persistedSlice.search.aminities;
 
 export const selectNoOfChildrens=(state) => state.persistedSlice.search.noOfChildrens
 export const selectNoOfAdults=(state) => state.persistedSlice.search.noOfAdults
+export const selectIsResultLoading =(state) => state.persistedSlice.search.isResultLoading
 
 export default searchSlice.reducer
 export const {updateIsSearchBarOpen,updateLocation,updateCheckIn,
               updateCheckOut,updateRoomType,updateSearchResult,
               updatePriceRange,updateAllDetails,updateAmenities,
-              removeFromAmenities,clearAmenities,resetAll,
+              removeFromAmenities,clearAmenities,resetAll,updateIsResultLoading,
               updateNoOfGuests
              }=searchSlice.actions

@@ -65,17 +65,37 @@ const findUserHelper = (email) => {
     }
   });
 };
-
 //useremail,
 //username,
 //userid
 //userphone
 const findUserByUserName =async (username) => {
-  console.log(username,'is username unique')
+
   return new Promise(async (resolve, reject) => {
     try {
       const user = await userModel.findOne(
         { username: username },
+        {
+          _id: 1,
+          username: 1,
+          email: 1,
+          phone: 1,
+        }
+      );
+      resolve(user);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+
+const findUserById =async (user_id) => {
+
+  return new Promise(async (resolve, reject) => {
+    try {
+      const user = await userModel.findOne(
+        { _id: user_id },
         {
           _id: 1,
           username: 1,
@@ -154,5 +174,5 @@ module.exports = {
   getUserDetailsForProfileHelper,
   getAllUsersLengthHelper,
   editUserNameHelper,
-  editEmailHelper
+  editEmailHelper,findUserById
 };

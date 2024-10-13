@@ -1,18 +1,19 @@
-import { Button, Input } from "@material-tailwind/react"
+import { Button, Input, Rating } from "@material-tailwind/react"
 import SearchBar from "../../features/browse/components/SearchBar"
 import { SelectInput } from "./SelectInput"
 import { useSelector } from "react-redux"
-import { selectCheckIn, selectCheckOut, selectSearchResult } from "../../services/searchSlice"
+import { selectCheckIn, selectCheckOut, selectIsResultLoading, selectPriceRange, selectSearchResult } from "../../services/searchSlice"
 import { IMAGE_BASE_URL } from "../../data/constants"
 import { Link } from "react-router-dom"
-
-
+import { useSearchMutation } from "../../features/browse/services/searchApiSlice"
 
 const SearchPage=()=>{
 
     const data =useSelector(selectSearchResult)
     const checkIn=useSelector(selectCheckIn)
     const checkOut=useSelector(selectCheckOut)
+    const isLoading=useSelector(selectIsResultLoading)
+
     //console.log(searchResult)
     return (
         <div className="w-full flex flex-col items-center gap-5">
@@ -33,14 +34,20 @@ const SearchPage=()=>{
 
 
             {
-                data?.map((hotel,index)=>{
+                
+               !isLoading? data?.map((hotel,index)=>{
                         return (
                             <div className="w-[64.8%] flex shadow-gray-600 rounded-2xl bg-white">
                             <div className="w-[28%]">
                                 <img src={IMAGE_BASE_URL+'/'+hotel.images[0]} alt="" className="rounded-s-2xl" />
                             </div>
-                            <div className="w-[47%]">
-                                <h1 className="font-bold font-custom text-lg px-2 py-4">{hotel?.hotelName}</h1>
+                            <div className="w-[47%] flex flex-col gap-2 px-2">
+                                <h1 className="font-bold font-custom text-lg  pt-4">{hotel?.hotelName}</h1>
+                                <div className="flex">
+                                    <Rating value={4}/>
+                                    </div>
+
+                                    <p className="line-clamp-2 font-custom text-sm">{hotel?.description}</p>
                             </div>
                             <div className="w-[25%]">
                                 <div className="flex justify-between items-end border-[0.01rem] border-green-800
@@ -52,7 +59,39 @@ const SearchPage=()=>{
                             </div>
                         </div>
                         )
-                })
+                }):
+                (
+                    <div className="w-[64.8%] flex shadow-gray-600 rounded-2xl bg-white animate-pulse">
+      {/* Image Skeleton */}
+      <div className="w-[28%]">
+        <div className="h-32 bg-gray-300 rounded-s-2xl"></div>
+      </div>
+
+      {/* Hotel Info Skeleton */}
+      <div className="w-[47%] flex flex-col gap-2 px-2">
+        <div className="h-6 w-3/4 bg-gray-300 rounded mt-4"></div>
+        {/* Rating Skeleton */}
+        <div className="h-4 w-16 bg-gray-300 rounded"></div>
+
+        {/* Description Skeleton */}
+        <div className="h-4 w-full bg-gray-300 rounded"></div>
+        <div className="h-4 w-11/12 bg-gray-300 rounded"></div>
+      </div>
+
+      {/* Price and Button Skeleton */}
+      <div className="w-[25%]">
+        <div className="flex justify-between items-end border-[0.01rem] border-green-800 rounded-md bg-green-50 h-2/3 m-2 px-3 pb-2">
+          {/* Price Skeleton */}
+          <div className="h-6 w-1/3 bg-gray-300 rounded"></div>
+
+          {/* Button Skeleton */}
+          <div className="h-8 w-1/2 bg-gray-300 rounded-md"></div>
+        </div>
+      </div>
+    </div>
+  
+
+                )
             }
 
 {/* 

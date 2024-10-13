@@ -38,10 +38,10 @@ const roomSearchController = async (req, res, next) => {
 
   const location = req.query.search; 
   const noOfChildrens=req.query.noOfChildrens
-  const noOfAdults=req.query.noOfChildrens;
+  const noOfAdults=req.query.noOfAdults;
   const roomType = findRoomType(noOfChildrens,noOfAdults)
-
-
+console.log(roomType)
+console.log('ehji')
 
   const min = req.query.min || null;
   const max = req.query.max || null;

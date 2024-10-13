@@ -8,7 +8,7 @@ const {
   getRoomDetailsByIdHelper,
   decreaseRoomsCount,
 } = require("../helpers/roomHelper");
-const { findUserByUserName } = require("../helpers/userHelper");
+const { findUserByUserName, findUserById } = require("../helpers/userHelper");
 const { checkout } = require("../routes/paymentRoute");
 const {
   updateWalletAmountHelper,
@@ -22,7 +22,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET);
 
 const payment = async (req, res, next) => {
   try {
-    const {
+    let {
       roomDetails,
       checkInDate,
       checkOutDate,
@@ -33,6 +33,7 @@ const payment = async (req, res, next) => {
     } = req.body;
     const roomIds = [];
 
+    noOfDays=Number(noOfDays)+1
     roomDetails.forEach((room, index) => {
       roomIds.push(room.id);
     });
@@ -51,7 +52,8 @@ const payment = async (req, res, next) => {
       if (matchingRoomType) {
         const rate = matchingRoomType.rate;
         const noOfRooms = parseInt(room.noOfRooms);
-        totalPrice += rate * Number(noOfDays) * noOfRooms;
+        console.log(rate,noOfDays,noOfRooms)
+        totalPrice += rate * Number(noOfDays) * totalNoRooms;
       }
     });
 
@@ -74,7 +76,8 @@ const payment = async (req, res, next) => {
 
     roomDetails.price = Math.round(priceAfterDiscount);
 
-    const findUser = await findUserByUserName(req.user);
+    const findUser = await findUserById(req.body.user_id);
+
     const findHotel = await getAHotelHelperForOrder(hotel_id);
 
     const result = await Promise.all([roomDetailsFromDb, findUser, findHotel]);
@@ -94,7 +97,7 @@ const payment = async (req, res, next) => {
         product_data: {
           name: product.id,
         },
-        unit_amount: product.price * 100,
+        unit_amount: roomDetails.price * 100,
       },
       quantity: 1,
     }));
@@ -221,7 +224,7 @@ const webHookController = async (req, res, next) => {
   try {
     const { type, data } = req.body;
 
-
+console.log(req.body)
 
     if (type === "checkout.session.completed") {
       const bookingDetailsString = data.object.metadata.booking_details;

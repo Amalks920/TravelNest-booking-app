@@ -58,7 +58,7 @@ function App() {
 
 	const [socket, setSocket] = useState(null);
 	const [onlineUsers, setOnlineUsers] = useState([]);
-//   http://localhost:4000
+//    https://travelnest.shop http://localhost:4000
   useEffect(()=>{
     const socket = io("https://travelnest.shop", {
 			query: {

@@ -3,7 +3,7 @@ import { Button, Input, Popover, PopoverContent, PopoverHandler, select } from '
 import DatePicker from '../../../components/form/DatePicker'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectLocation, selectNoOfAdults, selectNoOfChildrens, updateLocation, updateNoOfGuests, updateSearchResult } from '../../../services/searchSlice'
+import { selectLocation, selectNoOfAdults, selectNoOfChildrens, selectPriceRange, updateIsResultLoading, updateLocation, updateNoOfGuests, updateSearchResult } from '../../../services/searchSlice'
 import SelectCount from './SelectCount'
 import { useSearchMutation } from "../services/searchApiSlice";
 import { selectCheckIn, selectCheckOut } from '../../../services/searchSlice'
@@ -17,6 +17,7 @@ const SearchBar = () => {
   const noOfChildrens=useSelector(selectNoOfChildrens)
   const checkIn=useSelector(selectCheckIn)
   const checkOut=useSelector(selectCheckOut)
+  const priceRange =useSelector(selectPriceRange)
 
 
   const [counts, setCounts] = useState([1, 0]);
@@ -36,11 +37,13 @@ const SearchBar = () => {
         checkOut: checkOut,
         roomType: 'double',
         noOfAdults:noOfAdults,
-        noOfChildrens:noOfChildrens
+        noOfChildrens:noOfChildrens,
+        priceRange:priceRange
       });
-      
+
       console.log(response);
       dispatch(updateSearchResult(response.data.response));
+      dispatch(updateIsResultLoading(isLoading));
       console.log(response);
     } catch (error) {
       console.log(error);
