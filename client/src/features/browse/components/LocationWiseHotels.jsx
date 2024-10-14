@@ -25,7 +25,7 @@ const LocationWiseHotels = () => {
     <div className="">
     <h1
     className="font-bold text-2xl mb-[8px] mt-[24px] font-custom"
-    >Take a dip at these top-rated hotels</h1>
+    >Take a dip at some hotels</h1>
 
     <div className="flex gap-10 shadow-gray-500 w-fit border-b-2">
       <Button

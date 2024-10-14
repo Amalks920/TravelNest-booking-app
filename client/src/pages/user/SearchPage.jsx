@@ -50,10 +50,10 @@ const SearchPage=()=>{
                                     <p className="line-clamp-2 font-custom text-sm">{hotel?.description}</p>
                             </div>
                             <div className="w-[25%]">
-                                <div className="flex justify-between items-end border-[0.01rem] border-green-800
+                                <div className="flex justify-between items-center border-[0.01rem] border-green-800
                                  rounded-md bg-green-50 h-2/3 m-2  px-3 pb-2">
                                     <h1 className="font-custom font-bold text-xl">₹{hotel?.rate}</h1>
-                                    <Link  className="h-1/4 rounded-md w-1/2" to={`/hotel-details/${hotel?.hotel_id}/${hotel?._id}/${checkIn}/${checkOut}`}>View Deal</Link>
+                                    <Link  className="h-1/4 rounded-md w-1/2 ps-4 bg-green-500 text-white pt-[3px]" to={`/hotel-details/${hotel?.hotel_id}/${hotel?._id}/${checkIn}/${checkOut}`}>View Deal</Link>
                                 </div>
                                 <div></div>
                             </div>

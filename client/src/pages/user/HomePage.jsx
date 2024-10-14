@@ -10,10 +10,10 @@ const HomePage=()=>{
       <div className=" py-[48px]">
       <h1 className="text-2xl font-bold"
        style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif" }}
-      >We compare hotel prices from 100s of sites</h1>
+      >Book your perfect stay with ease</h1>
       <p className="mt-2"
        style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif" }}
-      >We’ll do the searching. You do the saving.</p>
+      >find, compare, and reserve hotels effortlessly all in one place!</p>
 
         <SearchBar/>
       </div>
@@ -66,7 +66,8 @@ const HomePage=()=>{
             <h1
             className="text-xl font-bold"
                    style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif" }}
-            >Search simply</h1>
+            >Compare confidently
+</h1>
             <p
             className="text-md max-w-[80%]"
                    style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif" }}
@@ -77,11 +78,11 @@ const HomePage=()=>{
             <h1
             className="text-xl font-bold"
                    style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif" }}
-            >Search simply</h1>
+            >Save big</h1>
             <p
             className="text-md max-w-[80%]"
                    style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif" }}
-            >Discover a great deal to book on our partner sites.</p>
+            >Discover a great deal to book on our  site.</p>
           </div>
       </div>
 

@@ -9,9 +9,9 @@ const HotelsByLocation=()=>{
     const {hotelName}=useParams();
 
     const {data:hotels,isError,isFetching,isLoading}=useFilterAllRoomsByLocationQuery({hotelName})
-
+    console.log(hotels)
     return (
-<div className="grid grid-cols-3 grid-flow-row w-[90%] place-items-center gap-12 mt-[5%] rounded-lg mb-[9%]">
+<div className="grid grid-cols-3 grid-flow-row w-[90%] place-items-center gap-12 mt-[5%] rounded-lg mb-[9%] border-2 border-green-500">
 
 
    { 

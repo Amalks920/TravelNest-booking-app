@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import { Button } from '@material-tailwind/react';
 import { IMAGE_BASE_URL } from '../../../data/constants';
+import { Link } from 'react-router-dom';
 
 const Cards = ({hotels}) => {
+
+
+
+  console.log(hotels)
+  console.log('hotels o');
+  
   const allCards = [
     {
       id: 1,
@@ -55,28 +62,13 @@ const Cards = ({hotels}) => {
       <div className='flex mb-10 gap-8 max-w-[100%]  overflow-scroll ps-[10px] pt-[12px]'>
        
         {
-          hotels.map(({images,hotelName},index)=>{
+          hotels?.map(({images,hotelName},index)=>{
             return (
-              <div className='rounded-2xl max-w-[313px] shadow-2xl min-w-[313px] overflow-x-scroll'>
-              <img className='w-full h-[200px]  ' src={IMAGE_BASE_URL+'/'+images[0]} alt="" />
-              
-              <div className='px-4 pb-2'>
-              <h1
+              <Link to={`/hotels-by-location/${hotelName}`} className=' max-w-[300px] shadow-2xl min-w-[300px] h-[150px] rounded-md overflow-x-scroll bg-cover flex items-end' style={{backgroundImage:`url(${IMAGE_BASE_URL+'/'+images[0]})`}}>
+                              <h1
                      style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif" }}
-              className='font-bold text-lg p-[4px] mb-[4px] line-clamp-1'>{hotelName}</h1>
-              <div>
-                <span>sdkfl</span>
-                <span>ff</span>
-              </div>
-  
-              <div>
-                <span>ff</span>
-                <span>ff</span>
-              </div>
-  
-              <Button color='blue' className='w-full mt-[16px]'>Check prices</Button>
-              </div>
-            </div>
+              className='font-bold text-md p-[4px] mb-[4px] line-clamp-1 text-white ps-4'>{hotelName}</h1>
+            </Link>
             )
           })
         }

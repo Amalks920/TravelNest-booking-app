@@ -21,6 +21,7 @@ const SearchBar = () => {
 
 
   const [counts, setCounts] = useState([1, 0]);
+  const [openPopover, setOpenPopover] = useState(false);
 
    const [search,{isError,isLoading}]=useSearchMutation()
 
@@ -50,22 +51,37 @@ const SearchBar = () => {
     }
   };
 
-console.log(noOfChildrens)
+
           
   return (
 
 <div className='flex  mt-[40px] h-[60px] rounded-md shadow-xl bg-white border-2'>
+
+
+
     <div className="border-r-4 w-[28.98%] flex justify-start items-center">
+
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 mr-2 ms-2 mt-1">
         <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clip-rule="evenodd" />
       </svg>
+
       <Input
       value={location}
       onChange={(e)=>{
           dispatch(updateLocation(e.target.value))
       }}
-      variant="standard" label="Location" size='2xl' className='border-none'/>
+      autoFocus={true}
+      onFocus={() => setOpenPopover(true)}
+      onBlur={() => setOpenPopover(false)}
+      variant="standard" label="Destination" size='2xl' className='border-none'/>
+ <div className={`absolute right-[80%] hidden left-[18%] top-[320px] w-[280px] bg-white h-[200px] rounded-md ${location.length===0?'hidden':''}`}>
+ 
+ </div>
+     
     </div>
+
+   
+
     <div className=" w-[32.4%]  border-r-4 ">
       <div className='flex max-w-[300px]'>
       <div className='w-full'><DatePicker label='checkin'/></div>
@@ -93,7 +109,7 @@ console.log(noOfChildrens)
       </PopoverHandler>
 
 
-      <PopoverContent className='shadow-gray-400 mt-2 ms-20'>
+      <PopoverContent disableFocus={true} className='shadow-gray-400 mt-2 ms-20'>
         <SelectCount counts={counts} setCounts={setCounts}/>
       </PopoverContent>
 
